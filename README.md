@@ -42,7 +42,7 @@
 
 1. Несколько рекомендаций по построению DFD-диаграмм [здесь](https://docs.google.com/document/d/1O6-s4iM6aX8m_dmSLbHtWmGrvoHsby4J/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true).
 
-2.Мастер-классы Юрия Купоросова (Университет ИТМО) "Искусство выступать"
+2. Мастер-классы Юрия Купоросова (Университет ИТМО) "Искусство выступать"
 
 Чаcть 1. [Как не надо делать презентацию](https://drive.google.com/file/d/1wmtW6op0Qv6JtPRC1k8Y79lJoeG5nOkT/view?usp=sharing)
 
