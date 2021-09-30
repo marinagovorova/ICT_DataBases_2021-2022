@@ -62,7 +62,7 @@
 
 Модель БД в нотации IDEF1X выполняется в Erwin Data Modeler (или аналоге). Возможны два варианта установки: новая версия с оффициального сайта и получение студенческой лицензии, либо использование триальной версии.
 
-Старая версия доступна с [гугл-диска](https://drive.google.com/file/d/1dIGQHVFX_YX9__WSVpl0p8XHjVLFPiWX/view?usp=sharing).
+Старая версия доступна с [здесь](https://drive.google.com/file/d/1dIGQHVFX_YX9__WSVpl0p8XHjVLFPiWX/view?usp=sharing).
 
 Пример и объяснение того, как сделать модель данных в нотации IDEF1X, можно посмотреть [здесь](https://www.youtube.com/watch?v=L_uQeX3zT3I)
 
