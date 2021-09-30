@@ -13,7 +13,7 @@
 
 [Содержание зачета](будет) - перечень тем для подготовки к зачету.
 ## Раздел 1 ВВЕДЕНИЕ В КОНЦЕПЦИЮ БАЗ ДАННЫХ
-## Лекция 1 ВВЕДЕНИЕ
+## Лекция 1.1 ВВЕДЕНИЕ
 1. [Актуальность проблематики АИС и лежащих в их основе БД](https://docs.google.com/presentation/d/12U5UdUDx-RmqlSl2rF8Gl5RrD6Dr80BB/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 2. [Состав и фукции СУБД. Трехуровневая архитектура БД и СУБД (часть 1)](https://docs.google.com/presentation/d/18zOpCvK6QNG8bNM7r4IiFXow9m4DELHI/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true) (презентация)
 3. [Состав и фукции СУБД. Трехуровневая архитектура БД и СУБД (часть 2)](https://docs.google.com/document/d/1xX92g-T2mo8MR4WCFmFT1hctcf11q9Iy/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true) (текстовые материалы)
