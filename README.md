@@ -64,7 +64,7 @@
 
 Старая версия доступна с [гугл-диска](https://drive.google.com/file/d/1dIGQHVFX_YX9__WSVpl0p8XHjVLFPiWX/view?usp=sharing).
 
-Пример и объяснение того, как сделать функциональную модель, можно посмотреть [здесь](https://www.youtube.com/watch?v=L_uQeX3zT3I)
+Пример и объяснение того, как сделать модель данных в нотации IDEF1X, можно посмотреть [здесь](https://www.youtube.com/watch?v=L_uQeX3zT3I)
 
 Дополнительный лабораторный практикум по Erwin Data Modeler [здесь]()
 
