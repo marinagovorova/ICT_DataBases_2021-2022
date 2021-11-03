@@ -75,6 +75,14 @@
 Модель БД перед сдачей отчета должна быть согласована (на занятии или консультации).
 
 Отчетные материалы (для пул-реквеста) включают файл отчета по лабораторной работе (PDF) и файл модели в Erwin Data Modeler (+PDF).
+##  Лекция 2.3  кЛАСИФИКАЦИЯ МОДЕЛЕЙ ДАНННЫХ. РЕЛЯЦИОННАЯ МОДЕЛЬ ДАННЫХ
+Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1znJxIEi6b3TIJdqmFQrzhC6peg-FCtOn/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### Лекция 2.3.1 ПРЕОБРАЗОВАНИЕ ИНФОЛОГИЧЕКОЙ МОДЕЛИ ДАННЫХ В РЕЛЯЦИОННУЮ
+Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1ZgKXL14cJXhDDe-u3n0_xFf4zB8W_f58/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 12 правил Кодда
+Материалы доступны [здесь](https://docs.google.com/document/d/1nQU_3FgVxpe6RVY5s8NvcKd20sfxS4lj/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### Запись лекции от 03.11.2021
+[Ссылка на запись](https://drive.google.com/file/d/1y_XXR1sBHsJlcXIONsaGmNOOx73vHim8/view?usp=sharing)
 ## Требования к отчетным материалам по лабораторным работам
 **Структура отчета** соответсвует требованиям, заданным в лабораторной работе.
 
