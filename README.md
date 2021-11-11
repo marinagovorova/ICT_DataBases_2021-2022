@@ -87,7 +87,7 @@
 ### Лекция 3.1 РЕЛЯЦИОННОЕ ИЧИСЛЕНИЕ
 Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1_nn8qSxOjutcb5wrsE1RJHvL1FszV1eE/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 #### Лекция 3.1.1 Дополнительно Операции РА
-Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/11lnbcYpuQ2pIIlwpt_PXF-e-ZfZ_ywtN/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+Материалы доступны [здесь](https://docs.google.com/presentation/d/11lnbcYpuQ2pIIlwpt_PXF-e-ZfZ_ywtN/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 #### Дополнительно: 
 [Реляционная алгебра](https://docs.google.com/document/d/1UrlFjK-su-JTqPPRIYnSMwtqW2uQa7j-/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true) 
 ## Требования к отчетным материалам по лабораторным работам
