@@ -83,13 +83,35 @@
 Материалы доступны [здесь](https://docs.google.com/document/d/1nQU_3FgVxpe6RVY5s8NvcKd20sfxS4lj/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 ### Запись лекции от 03.11.2021
 [Ссылка на запись](https://drive.google.com/file/d/1y_XXR1sBHsJlcXIONsaGmNOOx73vHim8/view?usp=sharing)
-##  Лекция 3.1  РЕЛЯЦИОННАЯ АЛГЕБРА. РЕЛЯЦИОННОЕ ИСЧИСЛЕНИЕ
-### Лекция 3.1 РЕЛЯЦИОННОЕ ИЧИСЛЕНИЕ
+## Ращдел 3 ВВЕДЕНИЕ В SQL
+##  Лекция 3.1  РЕЛЯЦИОННАЯ АЛГЕБРА
+### Лекция 3.1 РЕЛЯЦИОННАЯ АЛГЕБРА
 Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1_nn8qSxOjutcb5wrsE1RJHvL1FszV1eE/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 #### Лекция 3.1.1 Дополнительно Операции РА
 Материалы доступны [здесь](https://docs.google.com/presentation/d/11lnbcYpuQ2pIIlwpt_PXF-e-ZfZ_ywtN/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 #### Дополнительно: 
 [Реляционная алгебра](https://docs.google.com/document/d/1UrlFjK-su-JTqPPRIYnSMwtqW2uQa7j-/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true) 
+##  Лекция 3.2 ОПИСАНИЕ ДАННЫХ И МАНИПУЛИРОВАНИЕ ДАННЫМИ SQL. DDL, DML, SELECT
+### 3.2.1 ВВЕДЕНИЕ В SQL
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1IhqzDZXPnNKo9B55ZzgViUTIhW0p0NIK/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.2 КОМАНДЫ DDL И DML SQL
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1nGnZMyXTJ304_aLp_7MdBqXxncBnfxk1/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.3 SELECT SQL. Базовая конструкция
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1ZJH5xepTcOxsqULIhpMDlanKmrEy33VA/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.4 SELECT SQL. Переменные таблицы Множественные операторы
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1GV_8glLTgXPQeD_y8NVW_pBm1Ei9gqlE/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.5 SELECT SQL. Подзапросы
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1l5s6TrGVyXARSf0Xd_pz6OkgcAQ4fnjd/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.6 SELECT SQL. Соединения
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1LO4rk6XES-cqESKT6dx15a3qy9W9lv8O/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.7 SELECT SQL. Агрегатные функции. Группирующие запросы
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1WqYRSSEVYR5sru-Jz5cRllFoMO5-CUku/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### 3.2.8 3.2.8  SELECT SQL. NULL-значения
+Материалы доступны [здесь](https://docs.google.com/presentation/d/1yDfSCdsuueC8y4YOhuU0H_cxpdgdxTxZ/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### Операторы языка SQL Select
+Материалы доступны [здесь](https://docs.google.com/document/d/1qrV8j5feENp6xR8nalRkMlzKng0n34k2/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+#### Тестовая база данных: 
+Скрипты запросов БД Колледж 3.2.3-3.2.9 [здесь](https://docs.google.com/document/d/1xvuFGtlC_fKgWCxIArr6yxAV7bPgoYnD/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 ## Требования к отчетным материалам по лабораторным работам
 **Структура отчета** соответсвует требованиям, заданным в лабораторной работе.
 
