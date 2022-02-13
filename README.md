@@ -3,25 +3,27 @@
 ========================
 [Учебный журнал](https://docs.google.com/spreadsheets/d/1flV-B4vq7GDoV6-CqSCId1_E3VkPkFLsBRpSBnUY3S4/edit?usp=sharing) по дисциплинам. Здесь доступна информация о сроках сдачи работ, о текущей успеваемости студентов и о материалах курса.
 
-Силабус:
+**Силабус:**
 
 [Базы данных](https://docs.google.com/document/d/1uS6_GqKyi8wXCCQ6GqrCqyJvXeraYWKP/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
 [Проектирование и реализация баз данных]()
 
-Лекционные материалы:
+**Лекционные материалы:**
 
 [Базы данных](https://drive.google.com/drive/folders/13iJoztFFU-T4NmuC3uhVMVS8DqjX-I0g?usp=sharing)
 
 [Проектирование и реализация баз данных]()
 
-Лабораторные работы:
+**Лабораторные работы - задания, оцениваемые преподавателем:**
 
 [Базы данных](https://drive.google.com/drive/folders/1YUKPtuNZfuAy-hrTDwW1KxwRat2mlrR-?usp=sharing) 
 
 [Проектирование и реализация баз данных]()
 
-[Практические задания](https://drive.google.com/drive/folders/19ZX3nv0rH6OF5KtFrtmAySoByQFNb8ZO?usp=sharing) - задания, которые желательно выполнить перед выполнением лабораторной работы для того, чтобы освоить тему.
+**Практические задания - задания, которые желательно выполнить перед выполнением лабораторной работы для того, чтобы освоить тему:**
+
+[Базы данных](https://drive.google.com/drive/folders/19ZX3nv0rH6OF5KtFrtmAySoByQFNb8ZO?usp=sharing)
 
 [Содержание экзамена](будет) - перечень тем для подготовки к зачету.
 # ПРОЕКТИРОВАНИЕ И РЕАЛИЗАЦИЯ БАЗ ДАННЫХ (4 семестр 2021-2022)
