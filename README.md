@@ -1,13 +1,25 @@
 # ICT_DataBases_2021-2022
-Репозиторий для реализации дисциплины "Базы данных"
+Репозиторий для реализации дисциплин "Базы данных" и "Проектирование и реализация баз данных
 ========================
 [Учебный журнал](https://docs.google.com/spreadsheets/d/1flV-B4vq7GDoV6-CqSCId1_E3VkPkFLsBRpSBnUY3S4/edit?usp=sharing) по дисциплинам. Здесь доступна информация о сроках сдачи работ, о текущей успеваемости студентов и о материалах курса.
 
-[Силабус](https://docs.google.com/document/d/1uS6_GqKyi8wXCCQ6GqrCqyJvXeraYWKP/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+Силабус:
 
-[Лекционные материалы](https://drive.google.com/drive/folders/13iJoztFFU-T4NmuC3uhVMVS8DqjX-I0g?usp=sharing)
+[Базы данных](https://docs.google.com/document/d/1uS6_GqKyi8wXCCQ6GqrCqyJvXeraYWKP/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
-[Лабораторные работы](https://drive.google.com/drive/folders/1YUKPtuNZfuAy-hrTDwW1KxwRat2mlrR-?usp=sharing) - задания, оцениваемые преподавателем.
+[Проектирование и реализация баз данных]()
+
+Лекционные материалы:
+
+[Базы данных](https://drive.google.com/drive/folders/13iJoztFFU-T4NmuC3uhVMVS8DqjX-I0g?usp=sharing)
+
+[Проектирование и реализация баз данных]()
+
+Лабораторные работы:
+
+[Базы данных](https://drive.google.com/drive/folders/1YUKPtuNZfuAy-hrTDwW1KxwRat2mlrR-?usp=sharing) 
+
+[Проектирование и реализация баз данных]()
 
 [Практические задания](https://drive.google.com/drive/folders/19ZX3nv0rH6OF5KtFrtmAySoByQFNb8ZO?usp=sharing) - задания, которые желательно выполнить перед выполнением лабораторной работы для того, чтобы освоить тему.
 
