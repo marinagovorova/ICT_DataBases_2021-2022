@@ -1,7 +1,7 @@
 # ICT_DataBases_2021-2022
 Репозиторий для реализации дисциплины "Базы данных"
 ========================
-[Учебный журнал](https://docs.google.com/spreadsheets/d/1flV-B4vq7GDoV6-CqSCId1_E3VkPkFLsBRpSBnUY3S4/edit?usp=sharing) по дисциплине. Здесь доступна информация о сроках сдачи работ, о текущей успеваемости студентов и о материалах курса.
+[Учебный журнал](https://docs.google.com/spreadsheets/d/1flV-B4vq7GDoV6-CqSCId1_E3VkPkFLsBRpSBnUY3S4/edit?usp=sharing) по дисциплинам. Здесь доступна информация о сроках сдачи работ, о текущей успеваемости студентов и о материалах курса.
 
 [Силабус](https://docs.google.com/document/d/1uS6_GqKyi8wXCCQ6GqrCqyJvXeraYWKP/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
@@ -12,6 +12,7 @@
 [Практические задания](https://drive.google.com/drive/folders/19ZX3nv0rH6OF5KtFrtmAySoByQFNb8ZO?usp=sharing) - задания, которые желательно выполнить перед выполнением лабораторной работы для того, чтобы освоить тему.
 
 [Содержание зачета](будет) - перечень тем для подготовки к зачету.
+#БАЗЫ ДАННЫХ (3 семестр 2021-2022)
 ## Раздел 1 ВВЕДЕНИЕ В КОНЦЕПЦИЮ БАЗ ДАННЫХ
 ## Лекция 1.1 ВВЕДЕНИЕ
 1. [Актуальность проблематики АИС и лежащих в их основе БД](https://docs.google.com/presentation/d/12U5UdUDx-RmqlSl2rF8Gl5RrD6Dr80BB/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
