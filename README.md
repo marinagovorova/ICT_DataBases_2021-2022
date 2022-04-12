@@ -13,13 +13,13 @@
 
 [Базы данных](https://drive.google.com/drive/folders/13iJoztFFU-T4NmuC3uhVMVS8DqjX-I0g?usp=sharing)
 
-[Проектирование и реализация баз данных]()
+[Проектирование и реализация баз данных](https://drive.google.com/drive/folders/1a0qeFI7lOEcyI3hEbDGMF6ENQzf4vBNF?usp=sharing)
 
 **Лабораторные работы - задания, оцениваемые преподавателем:**
 
 [Базы данных](https://drive.google.com/drive/folders/1YUKPtuNZfuAy-hrTDwW1KxwRat2mlrR-?usp=sharing) 
 
-[Проектирование и реализация баз данных]()
+[Проектирование и реализация баз данных](https://drive.google.com/drive/folders/14_lMM2Ezb6rO3h1vd7uwtuXbmI_7rLTC?usp=sharing)
 
 **Практические задания - задания, которые желательно выполнить перед выполнением лабораторной работы для того, чтобы освоить тему:**
 
@@ -42,10 +42,11 @@
 
 [Пример нормализации БД](https://drive.google.com/file/d/1bdGZYgQn5HTJn_AfO2id-8qzjdUaDovP/view?usp=sharing) 
 
-[Статья "Программа нормализации реляционных баз данных как основа предметно-ориентированной интеллектуальной обучающей системы](https://drive.google.com/file/d/1zJ9whObHPBNn4HihLRuP-28QJd3G7dp2/view?usp=sharing)
+[Статья "Программа нормализации реляционных баз данных как основа предметно-ориентированной интеллектуальной обучающей системы"](https://drive.google.com/file/d/1zJ9whObHPBNn4HihLRuP-28QJd3G7dp2/view?usp=sharing)
 
 **Ключевая контрольная точка по завершению изучения темы - тест 1** (тип вопросов: открытые, закрытые).
-## Лекция 2 Создание базы данных средствами реляционной СУБД. Манипулирование данными в SQL (добавление, редактирование, удаление данных) 
+## Раздел 2 РАЗРАБОТКА И ЭКСПЛУАТАЦИЯ БАЗ ДАННЫХ
+## Лекция 2.1 Создание базы данных средствами реляционной СУБД. 
 Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1iXLqMRsw8QiyfM_3vjovWCEE2xikSU3q/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
 [Практическое задание к лекции](https://docs.google.com/document/d/1fCMtKK0CMMuQzkmgp6UJlBd2uLfyKX9s/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
@@ -59,11 +60,30 @@
 [ЛР 1.1 Установка PostgreSQL и pgAdmin. Создание БД](https://docs.google.com/document/d/18-fGS24rdKi7UwO2MGOtR03n4c92d0G4/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
 [ЛР 1.2 Создание БД PostgreSQL в pgAdmin. Резервное копирование и восстановление БД](https://docs.google.com/document/d/1YhDBhl8FsHmkcXVdOxrugIrg0x6pH-pg/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+#### Защита лабораторной работы №1
+ По итогам выполнения работы студент представляет реализованную БД в pgadmim. На GIT должен быть загружен pdf-файл отчета по работе в соответствии с требованиями, изложенными в файле работы. При представлении реализованной базы данных необходимо устно обосновать состояние реализованной БД в соответствии с нормальными формами. 
+## Лекция 2.2.1 Манипулирование данными в SQL (добавление, редактирование, удаление, выборка данных). Построение запросов к БД
+Материалы лекции доступны [здесь](https://docs.google.com/document/d/1gv2EMnyf5jr9vtbwgAVsLL9CnWr4TOU0/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+## Лекция 2.2.2 Индексы в реляционной БД
+Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1ZtMijmQpBJuqXV3gMaQSfrJtj1Z78M22/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### Лабораторная работа 2 Запросы на выборку и модификацию данных, представления и индексы в PostgreSQL
+**Лабораторная работа 1 является ключевой контрольной точкой по разделу.**
 
- #### Защита лабораторной работы №1
- 
-По итогам выполнения работы студент представляет реализованную БД в pgadmim. На GIT должен быть загружен pdf-файл отчета по работе в соответствии с требованиями, изложенными в файле работы. При представлении реализованной базы данных необходимо устно обосновать состояние реализованной БД в соответствии с нормальными формами. 
+**Целью работы** является овладение практическими навыками создания представлений и запросов на выборку данных к базе данных PostgreSQL, использования подзапросов при модификации данных и индексов.
 
+Подробно **задание** описано в [тексте работы](https://docs.google.com/document/d/1gv2EMnyf5jr9vtbwgAVsLL9CnWr4TOU0/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+#### Защита лабораторной работы №2
+По итогам выполнения работы студент представляет отчет. На GIT должен быть загружен pdf-файл отчета в соответствии с требованиями, изложенными в файле работы. При представлении реализованного задания проводится устное собеседование по результатам работы.
+## Лекция 2.4. Хранимые процедуры. Процедуры и функции. Триггеры
+Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1zLx-KYsLfv-F0jJREGxKWPjhQfStYolV/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+## Материалы к практическому занятию "Триггеры и функции. Работа в консоли PostgreSQL psql"
+
+[Работа в консоли PostgreSQL psql](https://docs.google.com/document/d/1GnFO4ZWfNjzfhdaxoYe3P_XmrnVbzGX5/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+
+[Триггеры и функции](https://docs.google.com/document/d/1n86Xg6POEnVHcYUZDt4i2OXsGpIlhrzn/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+
+## Лекция 6 Разграничение доступа к БД. Привилегии пользователей
+Материалы лекции доступны [здесь](https://docs.google.com/presentation/d/1yoT8YSOP66YxrZz9kEuLV4TU_6tTUUdz/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 # БАЗЫ ДАННЫХ (3 семестр 2021-2022)
 ## Раздел 1 ВВЕДЕНИЕ В КОНЦЕПЦИЮ БАЗ ДАННЫХ
 ## Лекция 1.1 ВВЕДЕНИЕ
