@@ -5,7 +5,7 @@
 -- Dumped from database version 14.2
 -- Dumped by pg_dump version 14.2
 
--- Started on 2022-04-17 17:22:03
+-- Started on 2022-04-18 01:06:06
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1036,12 +1036,12 @@ ALTER TABLE ONLY public."Purchase_composition"
 
 
 --
--- TOC entry 3292 (class 2606 OID 49336)
+-- TOC entry 3292 (class 2606 OID 49520)
 -- Name: Purchase Purchase_id_supplier_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Purchase"
-    ADD CONSTRAINT "Purchase_id_supplier_fkey" FOREIGN KEY (id_purchase) REFERENCES public."Purchase"(id_purchase) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+    ADD CONSTRAINT "Purchase_id_supplier_fkey" FOREIGN KEY (id_supplier) REFERENCES public."Supplier"(id_supplier) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
 
 
 --
@@ -1053,7 +1053,7 @@ ALTER TABLE ONLY public."Orders"
     ADD CONSTRAINT "Waiter_id_waiter_fkey" FOREIGN KEY (id_waiter) REFERENCES public."Waiter"(id_waiter) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
 
 
--- Completed on 2022-04-17 17:22:04
+-- Completed on 2022-04-18 01:06:06
 
 --
 -- PostgreSQL database dump complete
