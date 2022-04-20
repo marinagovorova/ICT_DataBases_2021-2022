@@ -7,7 +7,7 @@
 
 [Базы данных](https://docs.google.com/document/d/1uS6_GqKyi8wXCCQ6GqrCqyJvXeraYWKP/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
-[Проектирование и реализация баз данных]()
+[Проектирование и реализация баз данных](https://docs.google.com/document/d/1oHGRWriymb8vxryhFQMe9FVp9BgEfqLl/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
 **Лекционные материалы:**
 
