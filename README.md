@@ -82,6 +82,7 @@
 [Работа в консоли PostgreSQL psql](https://docs.google.com/document/d/1GnFO4ZWfNjzfhdaxoYe3P_XmrnVbzGX5/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
 
 [Триггеры и функции](https://docs.google.com/document/d/1n86Xg6POEnVHcYUZDt4i2OXsGpIlhrzn/edit?usp=sharing&ouid=112553411084970929730&rtpof=true&sd=true)
+### Лабораторная работа 3 Процедуры, фуннкции и триггеры в PostgreSQL
 **Лабораторная работа 3 является ключевой контрольной точкой по разделу.**
 
 **Целью работы** является овладение практическими навыками создания представлений и запросов на выборку данных к базе данных PostgreSQL, использования подзапросов при модификации данных и индексов.
