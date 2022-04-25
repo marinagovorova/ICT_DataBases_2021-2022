@@ -1,0 +1,9 @@
+SELECT public."Ingredient".ingredient_name, COUNT(public."Dish_composition".id_dish)
+FROM public."Ingredient", public."Dish_composition"
+WHERE public."Ingredient".id_ingredient = public."Dish_composition".id_ingredient
+GROUP BY public."Ingredient".ingredient_name
+HAVING COUNT(public."Dish_composition".id_dish) = ANY(SELECT COUNT(public."Dish_composition".id_dish)
+													 FROM public."Ingredient", public."Dish_composition"
+													 WHERE public."Ingredient".id_ingredient = public."Dish_composition".id_ingredient
+													 GROUP BY public."Ingredient".ingredient_name
+													 ORDER BY COUNT(public."Dish_composition".id_dish) desc LIMIT 1)

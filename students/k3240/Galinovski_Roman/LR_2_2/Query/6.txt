@@ -1,0 +1,19 @@
+SELECT public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+COUNT(public."Cook_skills".id_dish)
+FROM public."Employer", public."Cook",public."Cook_skills"
+WHERE public."Employer".id_employer = public."Cook".id_employer
+AND public."Cook".id_cook = public."Cook_skills".id_cook
+GROUP BY public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc
+HAVING COUNT(public."Cook_skills".id_dish) = 
+		  (SELECT COUNT(public."Cook_skills".id_dish)
+		  FROM public."Employer", public."Cook", public."Cook_skills"
+		  WHERE public."Employer".id_employer = public."Cook".id_employer
+		  AND public."Cook".id_cook = public."Cook_skills".id_cook
+		  GROUP BY public."Employer".family,
+		  public."Employer".name,
+		  public."Employer".patronomyc
+		  ORDER BY count DESC LIMIT 1)
