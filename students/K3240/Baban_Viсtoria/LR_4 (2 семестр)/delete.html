@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+  <head>  
+    <title>Delete data in PostgreSQL with php</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+       li {list-style: none;}
+    </style>
+  </head>
+  <body>
+    <h2>Посмотреть данные:</h2>
+    <?php 
+    <ul>
+     <form name="display" action="show.php" method="POST" >
+      <li><input type="submit" name="show" value="Вывести данные"/></li>
+     </form>
+<p>
+<p>
+<h2>Удалить данные:</h2>
+     <form name="delete" action="delete.php" method="POST" >
+      <li>ID:</li><li><input type="text" name="id_student" /></li>
+       <p>
+      <li><input type="submit" /></li>
+     </form>
+   </ul>
+  </body>
+</html>
