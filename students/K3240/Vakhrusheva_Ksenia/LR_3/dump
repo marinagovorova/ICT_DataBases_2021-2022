@@ -1,0 +1,670 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.6
+-- Dumped by pg_dump version 13.6
+
+-- Started on 2022-06-05 21:51:53
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4 (class 2615 OID 16591)
+-- Name: default; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA "default";
+
+
+ALTER SCHEMA "default" OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 201 (class 1259 OID 16592)
+-- Name: Credit; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Credit" (
+    credit_id integer NOT NULL,
+    name character varying(50)[] NOT NULL,
+    min_term integer,
+    max_term integer,
+    term integer NOT NULL,
+    interest integer NOT NULL,
+    min_sum integer NOT NULL,
+    max_sum integer,
+    currency_id integer NOT NULL
+);
+
+
+ALTER TABLE "default"."Credit" OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 16598)
+-- Name: Credit_contract; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Credit_contract" (
+    credit_cont_id integer NOT NULL,
+    credit_date date NOT NULL,
+    repay_date date NOT NULL,
+    credit_sum integer NOT NULL,
+    repay_sum integer NOT NULL,
+    comment character varying(150)[],
+    worker_id integer NOT NULL,
+    depositor_id integer NOT NULL,
+    credit_id integer NOT NULL
+);
+
+
+ALTER TABLE "default"."Credit_contract" OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 24855)
+-- Name: Credit_status; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Credit_status" (
+    id integer NOT NULL,
+    "Status" character varying[]
+);
+
+
+ALTER TABLE "default"."Credit_status" OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 24853)
+-- Name: Credit_status_id_seq; Type: SEQUENCE; Schema: default; Owner: postgres
+--
+
+CREATE SEQUENCE "default"."Credit_status_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "default"."Credit_status_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 3086 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: Credit_status_id_seq; Type: SEQUENCE OWNED BY; Schema: default; Owner: postgres
+--
+
+ALTER SEQUENCE "default"."Credit_status_id_seq" OWNED BY "default"."Credit_status".id;
+
+
+--
+-- TOC entry 203 (class 1259 OID 16604)
+-- Name: Currency; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Currency" (
+    currency_id integer NOT NULL,
+    name character varying(20)[] NOT NULL
+);
+
+
+ALTER TABLE "default"."Currency" OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 16610)
+-- Name: Deposit; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Deposit" (
+    deposit_id integer NOT NULL,
+    min_term integer,
+    max_term integer,
+    term integer NOT NULL,
+    interest integer NOT NULL,
+    min_sum integer,
+    currency_id integer NOT NULL,
+    name character varying(30)[] NOT NULL,
+    depositor_id integer NOT NULL,
+    CONSTRAINT above_than_zero CHECK ((min_term > 0))
+);
+
+
+ALTER TABLE "default"."Deposit" OWNER TO postgres;
+
+--
+-- TOC entry 205 (class 1259 OID 16617)
+-- Name: Deposit_contract; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Deposit_contract" (
+    deposit_cont_id integer NOT NULL,
+    deposit_date date NOT NULL,
+    return_date date NOT NULL,
+    deposit_sum double precision NOT NULL,
+    return_sum double precision NOT NULL,
+    comment character varying(150)[],
+    worker_id integer NOT NULL,
+    depositor_id integer NOT NULL,
+    deposit_id integer
+);
+
+
+ALTER TABLE "default"."Deposit_contract" OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 16623)
+-- Name: Depositor; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Depositor" (
+    deposit_id integer NOT NULL,
+    min_term integer,
+    max_term integer,
+    term integer NOT NULL,
+    interest integer NOT NULL,
+    min_sum integer,
+    currency_id integer,
+    name character varying(30)[]
+);
+
+
+ALTER TABLE "default"."Depositor" OWNER TO postgres;
+
+--
+-- TOC entry 207 (class 1259 OID 16629)
+-- Name: Payment; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Payment" (
+    payment_id integer NOT NULL,
+    sum integer NOT NULL,
+    pay_date date,
+    credit_cont_id integer NOT NULL
+);
+
+
+ALTER TABLE "default"."Payment" OWNER TO postgres;
+
+--
+-- TOC entry 208 (class 1259 OID 16632)
+-- Name: Position; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Position" (
+    position_id integer NOT NULL,
+    name character varying(50)[] NOT NULL,
+    salary double precision NOT NULL,
+    category character varying(20)[] NOT NULL
+);
+
+
+ALTER TABLE "default"."Position" OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 16638)
+-- Name: Worker; Type: TABLE; Schema: default; Owner: postgres
+--
+
+CREATE TABLE "default"."Worker" (
+    worker_id integer NOT NULL,
+    last_name character varying(30)[] NOT NULL,
+    middle_name character varying(30)[] NOT NULL,
+    first_name character varying(30)[] NOT NULL,
+    phone_number character varying(15)[],
+    passport_type character varying(20)[] NOT NULL,
+    passport_num character varying(20)[] NOT NULL,
+    birth_day date NOT NULL,
+    address character varying(150)[] NOT NULL,
+    position_id integer
+);
+
+
+ALTER TABLE "default"."Worker" OWNER TO postgres;
+
+--
+-- TOC entry 2900 (class 2604 OID 24858)
+-- Name: Credit_status id; Type: DEFAULT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit_status" ALTER COLUMN id SET DEFAULT nextval('"default"."Credit_status_id_seq"'::regclass);
+
+
+--
+-- TOC entry 3070 (class 0 OID 16592)
+-- Dependencies: 201
+-- Data for Name: Credit; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Credit" (credit_id, name, min_term, max_term, term, interest, min_sum, max_sum, currency_id) FROM stdin;
+1	{Short}	\N	\N	6	100000	90000	\N	1
+2	{Short}	\N	\N	6	100000	90000	\N	1
+3	{Short}	\N	\N	6	100000	90000	\N	1
+4	{Short}	\N	\N	12	150000	120000	\N	2
+\.
+
+
+--
+-- TOC entry 3071 (class 0 OID 16598)
+-- Dependencies: 202
+-- Data for Name: Credit_contract; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Credit_contract" (credit_cont_id, credit_date, repay_date, credit_sum, repay_sum, comment, worker_id, depositor_id, credit_id) FROM stdin;
+1	2022-04-19	2022-10-20	100000	120000	{'}	1	2	1
+2	2022-04-15	2022-10-20	70000	80000	{'}	1	2	2
+3	2022-05-15	2022-10-20	55000	60000	{'}	1	3	3
+4	2022-05-10	2023-01-10	70000	100000	{'}	2	1	2
+5	2022-03-12	2022-04-12	100000	10000	{'}	1	2	4
+\.
+
+
+--
+-- TOC entry 3080 (class 0 OID 24855)
+-- Dependencies: 211
+-- Data for Name: Credit_status; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Credit_status" (id, "Status") FROM stdin;
+1	\N
+2	\N
+\.
+
+
+--
+-- TOC entry 3072 (class 0 OID 16604)
+-- Dependencies: 203
+-- Data for Name: Currency; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Currency" (currency_id, name) FROM stdin;
+1	{$}
+2	{P}
+3	{Евро}
+\.
+
+
+--
+-- TOC entry 3073 (class 0 OID 16610)
+-- Dependencies: 204
+-- Data for Name: Deposit; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Deposit" (deposit_id, min_term, max_term, term, interest, min_sum, currency_id, name, depositor_id) FROM stdin;
+1	\N	\N	24	20000	\N	1	{"Виктор Соловьев"}	1
+2	\N	\N	12	50000	\N	1	{"Виктор Соловьев"}	1
+3	\N	\N	12	20000	\N	1	{"Анна Григорьева"}	2
+4	\N	\N	36	150000	\N	2	{"Анна Григорьева"}	2
+5	\N	\N	12	102090	\N	3	{"Анна Григорьева"}	2
+\.
+
+
+--
+-- TOC entry 3074 (class 0 OID 16617)
+-- Dependencies: 205
+-- Data for Name: Deposit_contract; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Deposit_contract" (deposit_cont_id, deposit_date, return_date, deposit_sum, return_sum, comment, worker_id, depositor_id, deposit_id) FROM stdin;
+2	2022-02-20	2024-02-20	150000	250000	\N	1	2	1
+3	2022-05-01	2025-01-05	300000	350000	\N	2	1	2
+4	2022-05-01	2025-01-05	300000	350000	\N	1	3	3
+1	2022-02-20	2023-02-20	100000	170000	\N	1	1	1
+\.
+
+
+--
+-- TOC entry 3075 (class 0 OID 16623)
+-- Dependencies: 206
+-- Data for Name: Depositor; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Depositor" (deposit_id, min_term, max_term, term, interest, min_sum, currency_id, name) FROM stdin;
+1	\N	\N	20	2000	\N	\N	{"Виктор Соловьев"}
+2	\N	\N	12	10000	\N	\N	{"Анна Григорьева"}
+3	\N	\N	24	25000	\N	\N	{"Евгений Смирнов"}
+\.
+
+
+--
+-- TOC entry 3076 (class 0 OID 16629)
+-- Dependencies: 207
+-- Data for Name: Payment; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Payment" (payment_id, sum, pay_date, credit_cont_id) FROM stdin;
+1	10000	2022-05-27	4
+\.
+
+
+--
+-- TOC entry 3077 (class 0 OID 16632)
+-- Dependencies: 208
+-- Data for Name: Position; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Position" (position_id, name, salary, category) FROM stdin;
+1	{Менеджер}	30000	{Первая}
+\.
+
+
+--
+-- TOC entry 3078 (class 0 OID 16638)
+-- Dependencies: 209
+-- Data for Name: Worker; Type: TABLE DATA; Schema: default; Owner: postgres
+--
+
+COPY "default"."Worker" (worker_id, last_name, middle_name, first_name, phone_number, passport_type, passport_num, birth_day, address, position_id) FROM stdin;
+1	{Зубенко}	{Федоровна}	{Алла}	{+79063842299}	{RU}	{123478801}	2000-03-19	{"Вяземский 5"}	\N
+2	{Зендина}	{Владимировна}	{Елена}	{+79063843399}	{RU}	{74563705}	1995-01-19	{"Адмирала Кныша 4"}	\N
+\.
+
+
+--
+-- TOC entry 3087 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: Credit_status_id_seq; Type: SEQUENCE SET; Schema: default; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"default"."Credit_status_id_seq"', 1, false);
+
+
+--
+-- TOC entry 2902 (class 2606 OID 16645)
+-- Name: Credit Credit_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit"
+    ADD CONSTRAINT "Credit_pkey" PRIMARY KEY (credit_id);
+
+
+--
+-- TOC entry 2927 (class 2606 OID 24863)
+-- Name: Credit_status Credit_status_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit_status"
+    ADD CONSTRAINT "Credit_status_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2908 (class 2606 OID 16647)
+-- Name: Currency Currency_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Currency"
+    ADD CONSTRAINT "Currency_pkey" PRIMARY KEY (currency_id);
+
+
+--
+-- TOC entry 2915 (class 2606 OID 16649)
+-- Name: Deposit_contract Deposit_contract_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit_contract"
+    ADD CONSTRAINT "Deposit_contract_pkey" PRIMARY KEY (deposit_cont_id);
+
+
+--
+-- TOC entry 2911 (class 2606 OID 16651)
+-- Name: Deposit Deposit_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit"
+    ADD CONSTRAINT "Deposit_pkey" PRIMARY KEY (deposit_id);
+
+
+--
+-- TOC entry 2918 (class 2606 OID 16653)
+-- Name: Depositor Depositor_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Depositor"
+    ADD CONSTRAINT "Depositor_pkey" PRIMARY KEY (deposit_id);
+
+
+--
+-- TOC entry 2920 (class 2606 OID 16655)
+-- Name: Payment Payment_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Payment"
+    ADD CONSTRAINT "Payment_pkey" PRIMARY KEY (payment_id);
+
+
+--
+-- TOC entry 2922 (class 2606 OID 16657)
+-- Name: Position Position_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Position"
+    ADD CONSTRAINT "Position_pkey" PRIMARY KEY (position_id);
+
+
+--
+-- TOC entry 2924 (class 2606 OID 16659)
+-- Name: Worker Worker_pkey; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Worker"
+    ADD CONSTRAINT "Worker_pkey" PRIMARY KEY (worker_id);
+
+
+--
+-- TOC entry 2898 (class 2606 OID 16660)
+-- Name: Deposit_contract above_zero; Type: CHECK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE "default"."Deposit_contract"
+    ADD CONSTRAINT above_zero CHECK (((deposit_sum > (0)::double precision) AND (return_sum > (0)::double precision))) NOT VALID;
+
+
+--
+-- TOC entry 2896 (class 2606 OID 16661)
+-- Name: Credit above_zero; Type: CHECK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE "default"."Credit"
+    ADD CONSTRAINT above_zero CHECK (((min_term > 0) AND (max_term > 0) AND (term > 0) AND (min_sum > 0) AND (max_sum > 0))) NOT VALID;
+
+
+--
+-- TOC entry 2899 (class 2606 OID 16662)
+-- Name: Payment above_zero; Type: CHECK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE "default"."Payment"
+    ADD CONSTRAINT above_zero CHECK ((sum > 0)) NOT VALID;
+
+
+--
+-- TOC entry 2905 (class 2606 OID 16664)
+-- Name: Credit_contract credit_cont_idPK; Type: CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit_contract"
+    ADD CONSTRAINT "credit_cont_idPK" PRIMARY KEY (credit_cont_id);
+
+
+--
+-- TOC entry 2912 (class 1259 OID 24865)
+-- Name: complex_index; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX complex_index ON "default"."Deposit" USING btree (depositor_id, name, currency_id);
+
+
+--
+-- TOC entry 2916 (class 1259 OID 24867)
+-- Name: complex_index1; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX complex_index1 ON "default"."Deposit_contract" USING btree (deposit_date, deposit_id, worker_id);
+
+
+--
+-- TOC entry 2925 (class 1259 OID 24869)
+-- Name: complex_index2; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX complex_index2 ON "default"."Worker" USING btree (worker_id, first_name);
+
+
+--
+-- TOC entry 2903 (class 1259 OID 24870)
+-- Name: complex_index3; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX complex_index3 ON "default"."Credit_contract" USING btree (credit_date, worker_id);
+
+
+--
+-- TOC entry 2909 (class 1259 OID 24864)
+-- Name: simple_index; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX simple_index ON "default"."Currency" USING btree (name);
+
+
+--
+-- TOC entry 2913 (class 1259 OID 24866)
+-- Name: simple_index1; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX simple_index1 ON "default"."Deposit" USING btree (interest);
+
+
+--
+-- TOC entry 2906 (class 1259 OID 24868)
+-- Name: simple_index2; Type: INDEX; Schema: default; Owner: postgres
+--
+
+CREATE INDEX simple_index2 ON "default"."Credit_contract" USING btree (credit_date);
+
+
+--
+-- TOC entry 2928 (class 2606 OID 16665)
+-- Name: Credit Currency_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit"
+    ADD CONSTRAINT "Currency_idFK" FOREIGN KEY (currency_id) REFERENCES "default"."Currency"(currency_id) NOT VALID;
+
+
+--
+-- TOC entry 2938 (class 2606 OID 16670)
+-- Name: Payment credit_cont_id; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Payment"
+    ADD CONSTRAINT credit_cont_id FOREIGN KEY (credit_cont_id) REFERENCES "default"."Credit"(credit_id) NOT VALID;
+
+
+--
+-- TOC entry 2929 (class 2606 OID 16675)
+-- Name: Credit_contract credit_id; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit_contract"
+    ADD CONSTRAINT credit_id FOREIGN KEY (credit_id) REFERENCES "default"."Credit"(credit_id);
+
+
+--
+-- TOC entry 2932 (class 2606 OID 16680)
+-- Name: Deposit currency_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit"
+    ADD CONSTRAINT "currency_idFK" FOREIGN KEY (currency_id) REFERENCES "default"."Currency"(currency_id) NOT VALID;
+
+
+--
+-- TOC entry 2933 (class 2606 OID 16685)
+-- Name: Deposit deposit_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit"
+    ADD CONSTRAINT "deposit_idFK" FOREIGN KEY (deposit_id) REFERENCES "default"."Deposit"(deposit_id) NOT VALID;
+
+
+--
+-- TOC entry 2935 (class 2606 OID 16690)
+-- Name: Deposit_contract deposit_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit_contract"
+    ADD CONSTRAINT "deposit_idFK" FOREIGN KEY (deposit_id) REFERENCES "default"."Deposit"(deposit_id);
+
+
+--
+-- TOC entry 2934 (class 2606 OID 16695)
+-- Name: Deposit depositor_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit"
+    ADD CONSTRAINT "depositor_idFK" FOREIGN KEY (depositor_id) REFERENCES "default"."Depositor"(deposit_id) NOT VALID;
+
+
+--
+-- TOC entry 2930 (class 2606 OID 16700)
+-- Name: Credit_contract depositor_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit_contract"
+    ADD CONSTRAINT "depositor_idFK" FOREIGN KEY (depositor_id) REFERENCES "default"."Depositor"(deposit_id);
+
+
+--
+-- TOC entry 2936 (class 2606 OID 16705)
+-- Name: Deposit_contract depositor_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit_contract"
+    ADD CONSTRAINT "depositor_idFK" FOREIGN KEY (depositor_id) REFERENCES "default"."Depositor"(deposit_id);
+
+
+--
+-- TOC entry 2939 (class 2606 OID 16710)
+-- Name: Worker position_id; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Worker"
+    ADD CONSTRAINT position_id FOREIGN KEY (position_id) REFERENCES "default"."Position"(position_id) NOT VALID;
+
+
+--
+-- TOC entry 2931 (class 2606 OID 16715)
+-- Name: Credit_contract worker_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Credit_contract"
+    ADD CONSTRAINT "worker_idFK" FOREIGN KEY (worker_id) REFERENCES "default"."Worker"(worker_id);
+
+
+--
+-- TOC entry 2937 (class 2606 OID 16720)
+-- Name: Deposit_contract worker_idFK; Type: FK CONSTRAINT; Schema: default; Owner: postgres
+--
+
+ALTER TABLE ONLY "default"."Deposit_contract"
+    ADD CONSTRAINT "worker_idFK" FOREIGN KEY (worker_id) REFERENCES "default"."Worker"(worker_id);
+
+
+-- Completed on 2022-06-05 21:51:53
+
+--
+-- PostgreSQL database dump complete
+--
+
