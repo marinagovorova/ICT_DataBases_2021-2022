@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+  <head>  
+    <title>Enter bookid to display data - creating a simple web application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+       li {list-style: none;}
+    </style>
+  </head>
+  <body>
+    <h2>Добавление тренера</h2>
+    <ul>
+     <form name="insert" action="insert.php" method="POST" >
+      <li>Введите паспортные данные тренера:</li><li><input type="text" name="passport_data_coach" /><br><br>
+      <li>Введите код категории тренера:</li><li><input type="text" name="category_code" /><br><br>
+      <li>Установите зарплату:</li><li><input type="text" name="salary" /><br><br>
+      <li>Установите рейтинг тренера:</li><li><input type="text" name="coach_rating" /><br><br>
+      <li>Введите имя и фамилию тренера:</li><li><input type="text" name="full_name" /><br><br>
+      <li>Введите номер телефона тренера:</li><li><input type="text" name="phone_number" /><br><br>
+      <li><input type="submit" name="submit" /><br><br>
+     </form>
+   </ul>
+  </body>
+</html>
+
