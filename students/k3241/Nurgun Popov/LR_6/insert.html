@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+<title>Insert data to PostgreSQL with php - creating a simple web application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+li {list-style: none;}
+</style>
+	</head>
+
+	<body>
+<h2>Enter information about the new bill</h2>
+<ul>
+<form name="insert" action="insert.php" method="POST" >
+<li>Bill number:</li><li><input type="text" name="bill_number" /></li>
+<li>Amount on bill:</li><li><input type="text" name="bill_sum" /></li>
+<li>Company name:</li><li><input type="text" name="company_name" /></li>
+<li>Owner's full name:</li><li><input type="text" name="full_name" /></li>
+<li><input type="submit" name="submit" /></li>
+</form>
+</ul>
+</body>
+</html>

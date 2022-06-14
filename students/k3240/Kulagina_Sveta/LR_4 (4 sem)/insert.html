@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+<title>Insert data to PostgreSQL with php</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+	li {listt-style: none;}
+</style>
+</head>
+<body>
+<h2>Enter train information</h2>
+<ul>
+<form name="insert" action="insert.php" method="POST" >
+
+Train id<br><input type="number" name="id_train" min=1/><br><br>
+
+Train type
+<br>
+<for="type">
+<select id="train_type" name="train_type" size="4">
+  <option value="скоростной">скоростной</option>
+  <option value="фирменный">фирменный</option>
+  <option value="пассажирский">пассажирский</option>
+  <option value="скорый">скорый</option>
+</select><br><br><br>
+
+Train name<br><input type="text" name="train_name"/><br><br>
+Departure datetime<br><input type="datetime-local" name="departure"/><br><br>
+Arrival datetime<br><input type="datetime-local" name="arrival"/><br><br>
+Destination<br><input type="text" name="destination"/><br><br>
+<br>
+<input type="submit" name="enter" />
+</form>
+</ul>
+</body>
+</html>
