@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Test App</string>
+    <string name="textView">Welcome to Test App!</string>
+    <string name="textPlainHint">Input city</string>
+    <string name="button">See</string>
+    <string name="notification">Please, enter the name of the city</string>
+</resources>
