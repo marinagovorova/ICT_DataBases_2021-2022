@@ -1,4 +1,4 @@
-SELECT public."Dishes".dish_name, SUM(public."Dish_composition".count_ingredient) AS count_ingredient
+SELECT public."Dishes".dish_name, COUNT(public."Dish_composition".count_ingredient) AS count_ingredient
 FROM public."Dishes",
 public."Dish_composition"
 WHERE public."Dishes".id_dish = public."Dish_composition".id_dish

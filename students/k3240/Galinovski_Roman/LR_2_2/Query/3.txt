@@ -15,11 +15,11 @@ public."Dish_composition",
 public."Dishes"
 WHERE public."Ingredient".id_ingredient = public."Dish_composition".id_ingredient
 AND public."Dish_composition".id_dish = public."Dishes".id_dish
-AND public."Dishes".id_order = public."Order_composition".id_order
+AND public."Dishes".id_dish = public."Order_composition".id_dish
 AND public."Order_composition".id_order = public."Orders".id_order
 AND public."Orders".id_waiter = public."Waiter".id_waiter
 AND public."Waiter".id_employer = public."Employer".id_employer
-AND public."Orders".date_order BETWEEN (date '2022-06-01') AND (date '2022-06-10')
+AND public."Orders".date_order BETWEEN ((CURRENT_DATE)-10) AND (CURRENT_DATE)
 GROUP BY public."Employer".id_employer,
 public."Employer".family,
 public."Employer".name,
