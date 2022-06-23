@@ -1,0 +1,21 @@
+<! DOCTYPE html>
+<head>
+<title>Вставка данных</title>
+<meta http-equiv="Content-Type" content="text/html;
+charset=utf-8" />
+<style>
+li {list-style: none;}
+</style>
+</head>
+<body>
+<h2>Добавление нового блюда</h2>
+<ul>
+<form name="insert" action="insert.php" method="POST" >
+<li>Введите имя блюда:</li><li><input type="varchar" name="dish_name" /></li>
+<li>Введите вес блюда в граммах:</li><li><input type="integer" name="weight" /></li>
+<li>Введите тип блюда - h - горячее, d - десерт, s - салат:</li><li><input type="varchar" name="type_dish" /></li>
+<li><input type="submit"/></li>
+</form>
+</ul>
+</body>
+</html>
