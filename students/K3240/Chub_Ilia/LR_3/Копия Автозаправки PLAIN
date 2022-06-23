@@ -1,0 +1,633 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-05-10 17:23:42 MSK
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 853 (class 1247 OID 16518)
+-- Name: вид топлива; Type: TYPE; Schema: public; Owner: foggydawning
+--
+
+CREATE TYPE public."вид топлива" AS ENUM (
+    'дизельное топливо',
+    'бензин',
+    'газ',
+    'электричество'
+);
+
+
+ALTER TYPE public."вид топлива" OWNER TO foggydawning;
+
+--
+-- TOC entry 859 (class 1247 OID 16538)
+-- Name: единица измерения; Type: TYPE; Schema: public; Owner: foggydawning
+--
+
+CREATE TYPE public."единица измерения" AS ENUM (
+    'метры кубические',
+    'литры',
+    'ватты',
+    'киловатты в час'
+);
+
+
+ALTER TYPE public."единица измерения" OWNER TO foggydawning;
+
+--
+-- TOC entry 856 (class 1247 OID 16528)
+-- Name: марка топлива; Type: TYPE; Schema: public; Owner: foggydawning
+--
+
+CREATE TYPE public."марка топлива" AS ENUM (
+    'АИ-95',
+    'АИ-92',
+    'АИ-98',
+    'ДТ',
+    'ЭЛ',
+    'СНГ',
+    'МЕТ'
+);
+
+
+ALTER TYPE public."марка топлива" OWNER TO foggydawning;
+
+--
+-- TOC entry 865 (class 1247 OID 16590)
+-- Name: статус финансовой транзакции; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public."статус финансовой транзакции" AS ENUM (
+    'ожидает оплаты',
+    'успешно',
+    'отклонено'
+);
+
+
+ALTER TYPE public."статус финансовой транзакции" OWNER TO postgres;
+
+--
+-- TOC entry 862 (class 1247 OID 16581)
+-- Name: тип автозаправки; Type: TYPE; Schema: public; Owner: foggydawning
+--
+
+CREATE TYPE public."тип автозаправки" AS ENUM (
+    'АЗС',
+    'АГЗС',
+    'Зарядная станция'
+);
+
+
+ALTER TYPE public."тип автозаправки" OWNER TO foggydawning;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 213 (class 1259 OID 16448)
+-- Name: Автозаправка; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Автозаправка" (
+    id integer NOT NULL,
+    "id поставщика" integer NOT NULL,
+    "адрес" text NOT NULL,
+    "тип" public."тип автозаправки" NOT NULL
+);
+
+
+ALTER TABLE public."Автозаправка" OWNER TO foggydawning;
+
+--
+-- TOC entry 210 (class 1259 OID 16391)
+-- Name: Карта; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Карта" (
+    "номер" integer NOT NULL
+);
+
+
+ALTER TABLE public."Карта" OWNER TO foggydawning;
+
+--
+-- TOC entry 212 (class 1259 OID 16430)
+-- Name: Клиент; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Клиент" (
+    id integer NOT NULL,
+    "адрес" text NOT NULL,
+    "фио" text NOT NULL,
+    "телефон" text NOT NULL
+);
+
+
+ALTER TABLE public."Клиент" OWNER TO foggydawning;
+
+--
+-- TOC entry 209 (class 1259 OID 16388)
+-- Name: Счёт; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Счёт" (
+    "номер" integer NOT NULL,
+    "id клиента" integer NOT NULL,
+    "номер карты" integer NOT NULL,
+    "остаток средств" real NOT NULL,
+    "id_фирмы" integer NOT NULL,
+    CONSTRAINT "Счёт_остаток средств_check" CHECK (("остаток средств" > (0)::double precision))
+);
+
+
+ALTER TABLE public."Счёт" OWNER TO foggydawning;
+
+--
+-- TOC entry 215 (class 1259 OID 16467)
+-- Name: Топливо; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Топливо" (
+    id integer NOT NULL,
+    "вид" public."вид топлива" NOT NULL,
+    "марка" public."марка топлива",
+    "единица измереия" public."единица измерения" NOT NULL,
+    CONSTRAINT "Топливо_id_check" CHECK ((id > 0))
+);
+
+
+ALTER TABLE public."Топливо" OWNER TO foggydawning;
+
+--
+-- TOC entry 214 (class 1259 OID 16462)
+-- Name: Топливо поставщика; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Топливо поставщика" (
+    "id поставщика" integer NOT NULL,
+    "id топлива" integer NOT NULL,
+    "количество" real NOT NULL,
+    "цена за единицу объема" real NOT NULL,
+    "конец действия цены на топливо" date NOT NULL,
+    "начало действия цены на топливо" date NOT NULL,
+    CONSTRAINT "Топливо поставщика_check" CHECK (("конец действия цены на топливо" > "начало действия цены на топливо")),
+    CONSTRAINT "Топливо поставщика_количество_check" CHECK (("количество" > (0)::double precision))
+);
+
+
+ALTER TABLE public."Топливо поставщика" OWNER TO foggydawning;
+
+--
+-- TOC entry 216 (class 1259 OID 16484)
+-- Name: Финансовая транзакция; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Финансовая транзакция" (
+    "дата и время" time without time zone NOT NULL,
+    "номер карты" integer NOT NULL,
+    "id автозаправки" integer NOT NULL,
+    "id топлива" integer NOT NULL,
+    "количество топлива" real NOT NULL,
+    "статус" public."статус финансовой транзакции" NOT NULL,
+    CONSTRAINT "Финансовая тра_количество топ_check" CHECK (("количество топлива" > (0)::double precision))
+);
+
+
+ALTER TABLE public."Финансовая транзакция" OWNER TO foggydawning;
+
+--
+-- TOC entry 211 (class 1259 OID 16420)
+-- Name: Фирма-поставщик; Type: TABLE; Schema: public; Owner: foggydawning
+--
+
+CREATE TABLE public."Фирма-поставщик" (
+    id integer NOT NULL,
+    "юридический адрес" text NOT NULL,
+    "название" text NOT NULL,
+    "телефон" text DEFAULT (+ 8) NOT NULL
+);
+
+
+ALTER TABLE public."Фирма-поставщик" OWNER TO foggydawning;
+
+--
+-- TOC entry 3673 (class 0 OID 16448)
+-- Dependencies: 213
+-- Data for Name: Автозаправка; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Автозаправка" (id, "id поставщика", "адрес", "тип") FROM stdin;
+1	1	Боровая ул., 43, Санкт-Петербург	АЗС
+2	1	Ждановская ул., 2А, Санкт-Петербург	АЗС
+3	2	Малый просп. Васильевского острова, 61, Санкт-Петербург	АЗС
+4	3	Российский просп., 2, Санкт-Петербург	АЗС
+5	4	Мурманское ш., 12	Зарядная станция
+\.
+
+
+--
+-- TOC entry 3670 (class 0 OID 16391)
+-- Dependencies: 210
+-- Data for Name: Карта; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Карта" ("номер") FROM stdin;
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+\.
+
+
+--
+-- TOC entry 3672 (class 0 OID 16430)
+-- Dependencies: 212
+-- Data for Name: Клиент; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Клиент" (id, "адрес", "фио", "телефон") FROM stdin;
+1	667818, Сахалинская область, город Подольск, наб. Гагарина, 10	Костин Артём Георгиевич	8043524311
+2	313880, Белгородская область, город Мытищи, пер. Сталина, 71	Ильин Филипп Назарович	296997835310
+3	117879, Свердловская область, город Серпухов, пер. Будапештсткая, 07	Иванов Адам Дамирович	754305392990
+4	402040, Белгородская область, город Воскресенск, пер. Ладыгина, 44	Суханов Александр Васильевич	17410148819
+\.
+
+
+--
+-- TOC entry 3669 (class 0 OID 16388)
+-- Dependencies: 209
+-- Data for Name: Счёт; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Счёт" ("номер", "id клиента", "номер карты", "остаток средств", "id_фирмы") FROM stdin;
+10101010	1	1	1000	1
+103020	2	2	10402	1
+123123	3	5	943	2
+\.
+
+
+--
+-- TOC entry 3675 (class 0 OID 16467)
+-- Dependencies: 215
+-- Data for Name: Топливо; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Топливо" (id, "вид", "марка", "единица измереия") FROM stdin;
+1	бензин	АИ-92	литры
+2	бензин	АИ-95	литры
+3	бензин	АИ-98	литры
+4	дизельное топливо	ДТ	литры
+6	газ	МЕТ	метры кубические
+7	газ	СНГ	метры кубические
+5	электричество	ЭЛ	киловатты в час
+\.
+
+
+--
+-- TOC entry 3674 (class 0 OID 16462)
+-- Dependencies: 214
+-- Data for Name: Топливо поставщика; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Топливо поставщика" ("id поставщика", "id топлива", "количество", "цена за единицу объема", "конец действия цены на топливо", "начало действия цены на топливо") FROM stdin;
+2	4	10000	54.95	2022-06-01	2022-05-01
+1	1	1e+07	47.9	2022-07-30	2022-06-01
+2	2	1e+07	51.8	2022-07-30	2022-06-01
+2	3	1e+10	62.35	2022-06-01	2022-05-01
+4	5	1e+15	1.63	2022-06-01	2022-05-22
+\.
+
+
+--
+-- TOC entry 3676 (class 0 OID 16484)
+-- Dependencies: 216
+-- Data for Name: Финансовая транзакция; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Финансовая транзакция" ("дата и время", "номер карты", "id автозаправки", "id топлива", "количество топлива", "статус") FROM stdin;
+10:05:06	1	1	3	30	успешно
+01:15:22	5	5	5	1000	ожидает оплаты
+00:05:10	2	4	2	25	успешно
+\.
+
+
+--
+-- TOC entry 3671 (class 0 OID 16420)
+-- Dependencies: 211
+-- Data for Name: Фирма-поставщик; Type: TABLE DATA; Schema: public; Owner: foggydawning
+--
+
+COPY public."Фирма-поставщик" (id, "юридический адрес", "название", "телефон") FROM stdin;
+1	125196, Москва Город, ул. Лесная, д. 9	Shell	+77172555444
+2	115230, Г.Москва, вн.тер.г. Муниципальный Округ Нагорный, проезд Электролитный, д. 3, стр. 32	BP	88002001070
+3	196158, Санкт-петербург Город, ш. Пулковское, д.32-а	Neste	+78127030610
+4	197227, Г.Санкт-Петербург, вн.тер.г. Муниципальный Округ Озеро Долгое, ул Гаккелевская, д. 21, литера А	Ленэнерго	88002200220
+\.
+
+
+--
+-- TOC entry 3505 (class 2606 OID 16461)
+-- Name: Автозаправка Автозаправка_id_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Автозаправка"
+    ADD CONSTRAINT "Автозаправка_id_key" UNIQUE (id);
+
+
+--
+-- TOC entry 3507 (class 2606 OID 16516)
+-- Name: Автозаправка Автозаправка_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Автозаправка"
+    ADD CONSTRAINT "Автозаправка_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3509 (class 2606 OID 16514)
+-- Name: Автозаправка Автозаправка_адрес_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Автозаправка"
+    ADD CONSTRAINT "Автозаправка_адрес_key" UNIQUE ("адрес");
+
+
+--
+-- TOC entry 3485 (class 2606 OID 16395)
+-- Name: Карта Карта_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Карта"
+    ADD CONSTRAINT "Карта_pkey" PRIMARY KEY ("номер");
+
+
+--
+-- TOC entry 3487 (class 2606 OID 16401)
+-- Name: Карта Карта_номер_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Карта"
+    ADD CONSTRAINT "Карта_номер_key" UNIQUE ("номер");
+
+
+--
+-- TOC entry 3497 (class 2606 OID 16443)
+-- Name: Клиент Клиент_id_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Клиент"
+    ADD CONSTRAINT "Клиент_id_key" UNIQUE (id);
+
+
+--
+-- TOC entry 3499 (class 2606 OID 16436)
+-- Name: Клиент Клиент_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Клиент"
+    ADD CONSTRAINT "Клиент_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3501 (class 2606 OID 16575)
+-- Name: Клиент Клиент_телефон_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Клиент"
+    ADD CONSTRAINT "Клиент_телефон_key" UNIQUE ("телефон");
+
+
+--
+-- TOC entry 3503 (class 2606 OID 16512)
+-- Name: Клиент Клиент_фио_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Клиент"
+    ADD CONSTRAINT "Клиент_фио_key" UNIQUE ("фио");
+
+
+--
+-- TOC entry 3480 (class 2606 OID 16397)
+-- Name: Счёт Счёт_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Счёт"
+    ADD CONSTRAINT "Счёт_pkey" PRIMARY KEY ("номер");
+
+
+--
+-- TOC entry 3482 (class 2606 OID 16508)
+-- Name: Счёт Счёт_номер_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Счёт"
+    ADD CONSTRAINT "Счёт_номер_key" UNIQUE ("номер");
+
+
+--
+-- TOC entry 3511 (class 2606 OID 16504)
+-- Name: Топливо поставщика Топливо поставщ_id поставщика_id т_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Топливо поставщика"
+    ADD CONSTRAINT "Топливо поставщ_id поставщика_id т_key" UNIQUE ("id поставщика", "id топлива");
+
+
+--
+-- TOC entry 3513 (class 2606 OID 16466)
+-- Name: Топливо поставщика Топливо поставщика_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Топливо поставщика"
+    ADD CONSTRAINT "Топливо поставщика_pkey" PRIMARY KEY ("id поставщика", "id топлива");
+
+
+--
+-- TOC entry 3515 (class 2606 OID 16506)
+-- Name: Топливо Топливо_id_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Топливо"
+    ADD CONSTRAINT "Топливо_id_key" UNIQUE (id);
+
+
+--
+-- TOC entry 3517 (class 2606 OID 16473)
+-- Name: Топливо Топливо_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Топливо"
+    ADD CONSTRAINT "Топливо_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3519 (class 2606 OID 16601)
+-- Name: Финансовая транзакция Финансовая тран_дата и время_ном_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Финансовая транзакция"
+    ADD CONSTRAINT "Финансовая тран_дата и время_ном_key" UNIQUE ("дата и время", "номер карты");
+
+
+--
+-- TOC entry 3521 (class 2606 OID 16599)
+-- Name: Финансовая транзакция Финансовая транзакция_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Финансовая транзакция"
+    ADD CONSTRAINT "Финансовая транзакция_pkey" PRIMARY KEY ("дата и время", "номер карты");
+
+
+--
+-- TOC entry 3489 (class 2606 OID 16445)
+-- Name: Фирма-поставщик Фирма-поставщик_id_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Фирма-поставщик"
+    ADD CONSTRAINT "Фирма-поставщик_id_key" UNIQUE (id);
+
+
+--
+-- TOC entry 3491 (class 2606 OID 16424)
+-- Name: Фирма-поставщик Фирма-поставщик_pkey; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Фирма-поставщик"
+    ADD CONSTRAINT "Фирма-поставщик_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3493 (class 2606 OID 16556)
+-- Name: Фирма-поставщик Фирма-поставщик_телефон_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Фирма-поставщик"
+    ADD CONSTRAINT "Фирма-поставщик_телефон_key" UNIQUE ("телефон");
+
+
+--
+-- TOC entry 3495 (class 2606 OID 16558)
+-- Name: Фирма-поставщик Фирма-поставщик_юридический адр_key; Type: CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Фирма-поставщик"
+    ADD CONSTRAINT "Фирма-поставщик_юридический адр_key" UNIQUE ("юридический адрес");
+
+
+--
+-- TOC entry 3483 (class 1259 OID 16409)
+-- Name: номер карты; Type: INDEX; Schema: public; Owner: foggydawning
+--
+
+CREATE INDEX "номер карты" ON public."Счёт" USING btree ("номер карты");
+
+
+--
+-- TOC entry 3525 (class 2606 OID 16455)
+-- Name: Автозаправка Автозаправка_id поставщика_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Автозаправка"
+    ADD CONSTRAINT "Автозаправка_id поставщика_fkey" FOREIGN KEY ("id поставщика") REFERENCES public."Фирма-поставщик"(id) NOT VALID;
+
+
+--
+-- TOC entry 3524 (class 2606 OID 16437)
+-- Name: Счёт Счёт_id клиента_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Счёт"
+    ADD CONSTRAINT "Счёт_id клиента_fkey" FOREIGN KEY ("id клиента") REFERENCES public."Клиент"(id);
+
+
+--
+-- TOC entry 3523 (class 2606 OID 16425)
+-- Name: Счёт Счёт_id_фирмы_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Счёт"
+    ADD CONSTRAINT "Счёт_id_фирмы_fkey" FOREIGN KEY ("id_фирмы") REFERENCES public."Фирма-поставщик"(id);
+
+
+--
+-- TOC entry 3522 (class 2606 OID 16415)
+-- Name: Счёт Счёт_номер карты_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Счёт"
+    ADD CONSTRAINT "Счёт_номер карты_fkey" FOREIGN KEY ("номер карты") REFERENCES public."Карта"("номер") MATCH FULL;
+
+
+--
+-- TOC entry 3527 (class 2606 OID 16479)
+-- Name: Топливо поставщика Топливо поставщик_id поставщика_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Топливо поставщика"
+    ADD CONSTRAINT "Топливо поставщик_id поставщика_fkey" FOREIGN KEY ("id поставщика") REFERENCES public."Фирма-поставщик"(id);
+
+
+--
+-- TOC entry 3526 (class 2606 OID 16474)
+-- Name: Топливо поставщика Топливо поставщика_id топлива_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Топливо поставщика"
+    ADD CONSTRAINT "Топливо поставщика_id топлива_fkey" FOREIGN KEY ("id топлива") REFERENCES public."Топливо"(id);
+
+
+--
+-- TOC entry 3528 (class 2606 OID 16491)
+-- Name: Финансовая транзакция Финансовая тран_id автозаправки_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Финансовая транзакция"
+    ADD CONSTRAINT "Финансовая тран_id автозаправки_fkey" FOREIGN KEY ("id автозаправки") REFERENCES public."Автозаправка"(id) NOT VALID;
+
+
+--
+-- TOC entry 3529 (class 2606 OID 16496)
+-- Name: Финансовая транзакция Финансовая транзак_номер карты_fkey; Type: FK CONSTRAINT; Schema: public; Owner: foggydawning
+--
+
+ALTER TABLE ONLY public."Финансовая транзакция"
+    ADD CONSTRAINT "Финансовая транзак_номер карты_fkey" FOREIGN KEY ("номер карты") REFERENCES public."Карта"("номер") NOT VALID;
+
+
+-- Completed on 2022-05-10 17:23:42 MSK
+
+--
+-- PostgreSQL database dump complete
+--
+
