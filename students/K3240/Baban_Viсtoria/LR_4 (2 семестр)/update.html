@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+<title>Update data in PostgreSQL with php</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+	li {listt-style: none;}
+</style>
+</head>
+<body>
+ <h2>Обновить статус студента</h2>
+ <ul>
+ <form name="update" action="update.php" method="POST" >
+  Введите данные
+  <p>
+  <li>ID</li>
+  <input type="text" name="id_student"/>
+  <p>
+  <li>Новый статус студента:</li>
+  <select name="status" size="1">
+    <option selected value="s1">Не выбрано</option>
+    <option value="Обучается">Обучается</option> 
+    <option value="Отчислен">Отчислен</option> 
+    <option value="В академ. отпуске">В академ. отпуске</option> 
+  </select>
+  <p>
+  <input type="submit" name="enter" />
+ </form>
+ </ul>
+</body>
+</html>
