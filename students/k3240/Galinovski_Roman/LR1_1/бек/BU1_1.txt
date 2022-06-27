@@ -1,0 +1,1192 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+-- Started on 2022-04-25 04:59:49
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 6 (class 2615 OID 49525)
+-- Name: var13; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA var13;
+
+
+ALTER SCHEMA var13 OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 210 (class 1259 OID 49173)
+-- Name: Cook; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Cook" (
+    id_cook integer NOT NULL,
+    set_of_dishes character varying(50) NOT NULL,
+    id_employer integer NOT NULL
+);
+
+
+ALTER TABLE public."Cook" OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 57443)
+-- Name: Cook_skills; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Cook_skills" (
+    id_cook integer NOT NULL,
+    id_dish integer NOT NULL
+);
+
+
+ALTER TABLE public."Cook_skills" OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 49176)
+-- Name: Dish_composition; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Dish_composition" (
+    id_ingredient integer NOT NULL,
+    id_dish integer NOT NULL,
+    count_ingredient real NOT NULL
+);
+
+
+ALTER TABLE public."Dish_composition" OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 49179)
+-- Name: Dishes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Dishes" (
+    id_dish integer NOT NULL,
+    id_order integer NOT NULL,
+    volume real NOT NULL,
+    weight real NOT NULL,
+    dish_name character varying(20)
+);
+
+
+ALTER TABLE public."Dishes" OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 49182)
+-- Name: Employer; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Employer" (
+    id_employer integer NOT NULL,
+    id_position integer NOT NULL,
+    family character varying(20) NOT NULL,
+    name character varying(20) NOT NULL,
+    patronomyc character varying(20) NOT NULL,
+    employer_passport character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public."Employer" OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 49185)
+-- Name: Ingredient; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Ingredient" (
+    id_ingredient integer NOT NULL,
+    ingredient_price real NOT NULL,
+    ingredient_type character varying(20) NOT NULL,
+    ingredient_name character varying(20) NOT NULL,
+    ingredient_volume real NOT NULL,
+    count_on_warehouse real NOT NULL,
+    ingredient_bbd date NOT NULL,
+    calories real NOT NULL
+);
+
+
+ALTER TABLE public."Ingredient" OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 57428)
+-- Name: Order_composition; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Order_composition" (
+    id_order integer NOT NULL,
+    id_dish integer NOT NULL,
+    count_dish integer NOT NULL,
+    notion character varying(50)
+);
+
+
+ALTER TABLE public."Order_composition" OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 49188)
+-- Name: Orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Orders" (
+    id_order integer NOT NULL,
+    id_table integer NOT NULL,
+    id_waiter integer NOT NULL,
+    date_order date NOT NULL
+);
+
+
+ALTER TABLE public."Orders" OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 49191)
+-- Name: Platen; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Platen" (
+    id_table integer NOT NULL,
+    table_occupation character varying(20),
+    table_capacity integer NOT NULL,
+    place_of_table character varying(20)
+);
+
+
+ALTER TABLE public."Platen" OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 49194)
+-- Name: Position; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Position" (
+    id_position integer NOT NULL,
+    salary real NOT NULL,
+    employer_category character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public."Position" OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 49197)
+-- Name: Purchase; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Purchase" (
+    id_purchase integer NOT NULL,
+    purchase_date date,
+    purchase_volume real NOT NULL,
+    id_supplier integer NOT NULL
+);
+
+
+ALTER TABLE public."Purchase" OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 49200)
+-- Name: Purchase_composition; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Purchase_composition" (
+    id_purchase_composition integer NOT NULL,
+    id_purchase integer NOT NULL,
+    cost real NOT NULL,
+    right_stock real NOT NULL,
+    id_ingredient integer NOT NULL
+);
+
+
+ALTER TABLE public."Purchase_composition" OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 49203)
+-- Name: Supplier; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Supplier" (
+    id_supplier integer NOT NULL,
+    supplier_name character varying(50),
+    supplier_city character varying(50),
+    supplier_country character varying(50)
+);
+
+
+ALTER TABLE public."Supplier" OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 49206)
+-- Name: Supplier_id_supplier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Supplier" ALTER COLUMN id_supplier ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."Supplier_id_supplier_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 222 (class 1259 OID 49207)
+-- Name: Table_id_table_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Platen" ALTER COLUMN id_table ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."Table_id_table_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 223 (class 1259 OID 49208)
+-- Name: Waiter; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Waiter" (
+    id_waiter integer NOT NULL,
+    id_employer integer NOT NULL
+);
+
+
+ALTER TABLE public."Waiter" OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 49211)
+-- Name: Waiter_id_waiter_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Waiter" ALTER COLUMN id_waiter ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."Waiter_id_waiter_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 3451 (class 0 OID 49173)
+-- Dependencies: 210
+-- Data for Name: Cook; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Cook" (id_cook, set_of_dishes, id_employer) FROM stdin;
+111142	stewed/boiled	111124
+111141	fried/stewed/deserts/baked	111123
+111143	boiled/fried/baked	111125
+\.
+
+
+--
+-- TOC entry 3467 (class 0 OID 57443)
+-- Dependencies: 226
+-- Data for Name: Cook_skills; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Cook_skills" (id_cook, id_dish) FROM stdin;
+111141	111171
+111141	111172
+111141	111173
+111142	111174
+111142	111175
+111142	111176
+111143	111177
+111143	111178
+111143	111179
+111141	111800
+\.
+
+
+--
+-- TOC entry 3452 (class 0 OID 49176)
+-- Dependencies: 211
+-- Data for Name: Dish_composition; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Dish_composition" (id_ingredient, id_dish, count_ingredient) FROM stdin;
+111181	111171	1
+111182	111171	1
+111186	111171	3
+111186	111172	2
+111184	111172	2
+111188	111172	4
+111183	111173	2
+111188	111173	2
+111182	111173	1
+111185	111174	1
+111181	111174	2
+111186	111174	2
+111184	111175	3
+111181	111175	2
+111187	111175	2
+111183	111176	3
+111182	111176	2
+111187	111176	2
+111187	111177	4
+111188	111177	4
+111186	111177	4
+111187	111178	4
+111188	111178	4
+111181	111179	3
+111182	111179	2
+111181	111800	3
+\.
+
+
+--
+-- TOC entry 3453 (class 0 OID 49179)
+-- Dependencies: 212
+-- Data for Name: Dishes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Dishes" (id_dish, id_order, volume, weight, dish_name) FROM stdin;
+111171	111161	150.5	420	Borsh
+111172	111162	90.3	115.2	Porsh
+111173	111163	40.6	50	Trap chappa
+111174	111164	45.2	55.7	chapper
+111175	111165	75.5	90.1	oaaoaoa mmm
+111176	111166	80	100.2	vkusno doner
+111177	111167	85.3	125.2	pizza navernoe
+111178	111168	160.3	330.7	kakie-to sushi maybe
+111179	111169	36.6	78.8	obed krutoi
+111800	111700	455.5	774.7	obed ne krutoy
+\.
+
+
+--
+-- TOC entry 3454 (class 0 OID 49182)
+-- Dependencies: 213
+-- Data for Name: Employer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Employer" (id_employer, id_position, family, name, patronomyc, employer_passport) FROM stdin;
+111121	111114	Nagiev	Dmitriy	Vladimirovich	6716 53355
+111122	111111	Victoryia	Lazareva	Sergeevna	6728 22837
+111123	111113	Dobroslave	Shiryaev	Nurzupaevicg	6111 11111
+111124	111113	Ismail	Darzaev	Umarshapaevich	6111 195851
+111125	111113	Maxim	Prihodko	Tatianovich	6111 133337
+111126	111112	Bezrukova	Kseniya	Sergeevna	11 124566
+111127	111112	Romanov	Mikhail	Yanovich	6666 133728
+111128	111112	Roseman	Eugeny	Yanovich	6636 135628
+\.
+
+
+--
+-- TOC entry 3455 (class 0 OID 49185)
+-- Dependencies: 214
+-- Data for Name: Ingredient; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Ingredient" (id_ingredient, ingredient_price, ingredient_type, ingredient_name, ingredient_volume, count_on_warehouse, ingredient_bbd, calories) FROM stdin;
+111181	100	no vegan	eggs	50	400	2022-08-31	115.5
+111182	45	vegan	bread	35.5	40	2022-06-30	45.5
+111183	170	no vegan	chicken	400	150	2022-07-15	170.5
+111184	300	no vegan	beef	450	250	2022-07-10	245.5
+111185	250	no vegan	pig	445	225	2022-07-10	235.5
+111186	70	vegan	grain	60	500	2023-01-01	0.85
+111187	80	vegan	fruits	70	500	2022-06-30	15.8
+111188	80	vegan	vegetables	70	500	2022-06-30	15.8
+\.
+
+
+--
+-- TOC entry 3466 (class 0 OID 57428)
+-- Dependencies: 225
+-- Data for Name: Order_composition; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Order_composition" (id_order, id_dish, count_dish, notion) FROM stdin;
+111161	111171	2	no salt
+111161	111172	1	no
+111162	111800	1	without pepper
+111162	111179	5	no
+111163	111173	1	no salt
+111163	111174	4	no
+111164	111175	3	no
+111164	111176	3	no
+111165	111177	5	no seasoning
+111165	111178	5	no seasoning
+111166	111171	4	no salt
+111166	111800	2	no
+111167	111172	3	no
+111167	111174	5	no
+111168	111173	2	no seasoning
+111168	111175	4	no
+111169	111176	5	no
+111169	111179	3	no
+111700	111177	2	no
+111700	111175	5	no
+\.
+
+
+--
+-- TOC entry 3456 (class 0 OID 49188)
+-- Dependencies: 215
+-- Data for Name: Orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Orders" (id_order, id_table, id_waiter, date_order) FROM stdin;
+111161	111151	111131	2022-05-31
+111162	111151	111133	2022-06-01
+111163	111153	111132	2022-06-02
+111164	111155	111131	2022-06-03
+111165	111157	111132	2022-06-04
+111166	111158	111133	2022-06-05
+111167	111158	111132	2022-06-07
+111168	111159	111133	2022-06-08
+111169	111153	111131	2022-06-09
+111700	111159	111132	2022-06-10
+\.
+
+
+--
+-- TOC entry 3457 (class 0 OID 49191)
+-- Dependencies: 216
+-- Data for Name: Platen; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Platen" (id_table, table_occupation, table_capacity, place_of_table) FROM stdin;
+111151	armored	5	exit
+111152	free	5	exit
+111153	armored	2	kitchen
+111155	armored	4	middle room
+111154	free	20	middle room
+111156	free	10	kitchen
+111157	armored	4	middle room
+111158	armored	4	exit
+111159	armored	2	middle room
+\.
+
+
+--
+-- TOC entry 3458 (class 0 OID 49194)
+-- Dependencies: 217
+-- Data for Name: Position; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Position" (id_position, salary, employer_category) FROM stdin;
+111111	30000	manager
+111112	25000	waiter
+111113	60000	cook
+111114	75000	director
+111115	15000	cleaner
+111116	20000	barmen
+\.
+
+
+--
+-- TOC entry 3459 (class 0 OID 49197)
+-- Dependencies: 218
+-- Data for Name: Purchase; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Purchase" (id_purchase, purchase_date, purchase_volume, id_supplier) FROM stdin;
+111101	2022-04-28	272625	111191
+111102	2022-04-29	70000	111193
+111103	2022-04-30	51491	111192
+\.
+
+
+--
+-- TOC entry 3460 (class 0 OID 49200)
+-- Dependencies: 219
+-- Data for Name: Purchase_composition; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Purchase_composition" (id_purchase_composition, id_purchase, cost, right_stock, id_ingredient) FROM stdin;
+111004	111102	40000	500	111187
+111005	111102	40000	500	111188
+111001	111101	25500	400	111183
+111002	111101	75000	450	111184
+111003	111101	56250	445	111185
+111006	111103	40000	400	111181
+111007	111103	1800	40	111182
+111008	111103	35000	500	111186
+\.
+
+
+--
+-- TOC entry 3461 (class 0 OID 49203)
+-- Dependencies: 220
+-- Data for Name: Supplier; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Supplier" (id_supplier, supplier_name, supplier_city, supplier_country) FROM stdin;
+111191	Soslan	MoscowCity	Moscow
+111192	Seraphim	Pittsburg	Russia
+111193	Ramzan	Chechnya	Kavkaz
+\.
+
+
+--
+-- TOC entry 3464 (class 0 OID 49208)
+-- Dependencies: 223
+-- Data for Name: Waiter; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Waiter" (id_waiter, id_employer) FROM stdin;
+111131	111126
+111132	111127
+111133	111128
+\.
+
+
+--
+-- TOC entry 3473 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: Supplier_id_supplier_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Supplier_id_supplier_seq"', 1, false);
+
+
+--
+-- TOC entry 3474 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: Table_id_table_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Table_id_table_seq"', 1, false);
+
+
+--
+-- TOC entry 3475 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: Waiter_id_waiter_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Waiter_id_waiter_seq"', 1, false);
+
+
+--
+-- TOC entry 3219 (class 2606 OID 49212)
+-- Name: Cook Cook_id_cook_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Cook"
+    ADD CONSTRAINT "Cook_id_cook_check" CHECK ((id_cook > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3238 (class 2606 OID 49214)
+-- Name: Cook Cook_id_cook_id_cook1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Cook"
+    ADD CONSTRAINT "Cook_id_cook_id_cook1_key" UNIQUE (id_cook) INCLUDE (id_cook);
+
+
+--
+-- TOC entry 3240 (class 2606 OID 49216)
+-- Name: Cook Cook_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Cook"
+    ADD CONSTRAINT "Cook_pkey" PRIMARY KEY (id_cook);
+
+
+--
+-- TOC entry 3295 (class 2606 OID 57447)
+-- Name: Cook_skills Cook_skills_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Cook_skills"
+    ADD CONSTRAINT "Cook_skills_pkey" PRIMARY KEY (id_cook, id_dish);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 49217)
+-- Name: Dish_composition Dish_composition_count_ingredient_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Dish_composition"
+    ADD CONSTRAINT "Dish_composition_count_ingredient_check" CHECK ((count_ingredient > (0)::double precision)) NOT VALID;
+
+
+--
+-- TOC entry 3221 (class 2606 OID 49218)
+-- Name: Dish_composition Dish_composition_id_dish_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Dish_composition"
+    ADD CONSTRAINT "Dish_composition_id_dish_check" CHECK ((id_dish > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3222 (class 2606 OID 49219)
+-- Name: Dish_composition Dish_composition_id_ingredient_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Dish_composition"
+    ADD CONSTRAINT "Dish_composition_id_ingredient_check" CHECK ((id_ingredient > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3243 (class 2606 OID 49221)
+-- Name: Dish_composition Dish_composition_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Dish_composition"
+    ADD CONSTRAINT "Dish_composition_pkey" PRIMARY KEY (id_ingredient, id_dish);
+
+
+--
+-- TOC entry 3223 (class 2606 OID 49222)
+-- Name: Dishes Dishes_id_dish_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Dishes"
+    ADD CONSTRAINT "Dishes_id_dish_check" CHECK ((id_dish > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3246 (class 2606 OID 49224)
+-- Name: Dishes Dishes_id_dish_id_dish1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Dishes"
+    ADD CONSTRAINT "Dishes_id_dish_id_dish1_key" UNIQUE (id_dish) INCLUDE (id_dish);
+
+
+--
+-- TOC entry 3248 (class 2606 OID 49226)
+-- Name: Dishes Dishes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Dishes"
+    ADD CONSTRAINT "Dishes_pkey" PRIMARY KEY (id_dish);
+
+
+--
+-- TOC entry 3224 (class 2606 OID 49227)
+-- Name: Dishes Dishes_volume_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Dishes"
+    ADD CONSTRAINT "Dishes_volume_check" CHECK ((volume > (0)::double precision)) NOT VALID;
+
+
+--
+-- TOC entry 3225 (class 2606 OID 49228)
+-- Name: Dishes Dishes_weight_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Dishes"
+    ADD CONSTRAINT "Dishes_weight_check" CHECK ((weight > (0)::double precision)) NOT VALID;
+
+
+--
+-- TOC entry 3226 (class 2606 OID 49229)
+-- Name: Employer Employer_id_employer_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Employer"
+    ADD CONSTRAINT "Employer_id_employer_check" CHECK ((id_employer > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3251 (class 2606 OID 49231)
+-- Name: Employer Employer_id_employer_id_employer1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Employer"
+    ADD CONSTRAINT "Employer_id_employer_id_employer1_key" UNIQUE (id_employer) INCLUDE (id_employer);
+
+
+--
+-- TOC entry 3253 (class 2606 OID 49233)
+-- Name: Employer Employer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Employer"
+    ADD CONSTRAINT "Employer_pkey" PRIMARY KEY (id_employer);
+
+
+--
+-- TOC entry 3227 (class 2606 OID 49234)
+-- Name: Ingredient Ingredient_id_ingredient_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Ingredient"
+    ADD CONSTRAINT "Ingredient_id_ingredient_check" CHECK ((id_ingredient > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3256 (class 2606 OID 49236)
+-- Name: Ingredient Ingredient_id_ingredient_id_ingredient1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ingredient"
+    ADD CONSTRAINT "Ingredient_id_ingredient_id_ingredient1_key" UNIQUE (id_ingredient) INCLUDE (id_ingredient);
+
+
+--
+-- TOC entry 3258 (class 2606 OID 49238)
+-- Name: Ingredient Ingredient_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ingredient"
+    ADD CONSTRAINT "Ingredient_pkey" PRIMARY KEY (id_ingredient);
+
+
+--
+-- TOC entry 3293 (class 2606 OID 57432)
+-- Name: Order_composition Order_composition_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Order_composition"
+    ADD CONSTRAINT "Order_composition_pkey" PRIMARY KEY (id_order, id_dish);
+
+
+--
+-- TOC entry 3228 (class 2606 OID 49239)
+-- Name: Orders Orders_id_order_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Orders"
+    ADD CONSTRAINT "Orders_id_order_check" CHECK ((id_order > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3260 (class 2606 OID 49241)
+-- Name: Orders Orders_id_order_id_order1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Orders"
+    ADD CONSTRAINT "Orders_id_order_id_order1_key" UNIQUE (id_order) INCLUDE (id_order);
+
+
+--
+-- TOC entry 3262 (class 2606 OID 49243)
+-- Name: Orders Orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Orders"
+    ADD CONSTRAINT "Orders_pkey" PRIMARY KEY (id_order);
+
+
+--
+-- TOC entry 3229 (class 2606 OID 49244)
+-- Name: Platen Platen_id_table_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Platen"
+    ADD CONSTRAINT "Platen_id_table_check" CHECK ((id_table > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3266 (class 2606 OID 49246)
+-- Name: Platen Platen_id_table_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Platen"
+    ADD CONSTRAINT "Platen_id_table_key" UNIQUE (id_table);
+
+
+--
+-- TOC entry 3268 (class 2606 OID 49248)
+-- Name: Platen Platen_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Platen"
+    ADD CONSTRAINT "Platen_pkey" PRIMARY KEY (id_table);
+
+
+--
+-- TOC entry 3230 (class 2606 OID 49249)
+-- Name: Platen Platen_table_capacity_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Platen"
+    ADD CONSTRAINT "Platen_table_capacity_check" CHECK ((table_capacity > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3231 (class 2606 OID 49250)
+-- Name: Position Position_id_position_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Position"
+    ADD CONSTRAINT "Position_id_position_check" CHECK ((id_position > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3270 (class 2606 OID 49252)
+-- Name: Position Position_id_position_id_position1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Position"
+    ADD CONSTRAINT "Position_id_position_id_position1_key" UNIQUE (id_position) INCLUDE (id_position);
+
+
+--
+-- TOC entry 3272 (class 2606 OID 49254)
+-- Name: Position Position_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Position"
+    ADD CONSTRAINT "Position_pkey" PRIMARY KEY (id_position);
+
+
+--
+-- TOC entry 3232 (class 2606 OID 49255)
+-- Name: Position Position_salary_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Position"
+    ADD CONSTRAINT "Position_salary_check" CHECK ((salary > (0)::double precision)) NOT VALID;
+
+
+--
+-- TOC entry 3234 (class 2606 OID 49256)
+-- Name: Purchase_composition Purchase_composition_id_purchase_composition_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Purchase_composition"
+    ADD CONSTRAINT "Purchase_composition_id_purchase_composition_check" CHECK ((id_purchase_composition > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3279 (class 2606 OID 49258)
+-- Name: Purchase_composition Purchase_composition_id_purchase_composition_id_purchase_co_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase_composition"
+    ADD CONSTRAINT "Purchase_composition_id_purchase_composition_id_purchase_co_key" UNIQUE (id_purchase_composition) INCLUDE (id_purchase_composition);
+
+
+--
+-- TOC entry 3281 (class 2606 OID 49260)
+-- Name: Purchase_composition Purchase_composition_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase_composition"
+    ADD CONSTRAINT "Purchase_composition_pkey" PRIMARY KEY (id_purchase_composition);
+
+
+--
+-- TOC entry 3233 (class 2606 OID 49261)
+-- Name: Purchase Purchase_id_purchase_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Purchase"
+    ADD CONSTRAINT "Purchase_id_purchase_check" CHECK ((id_purchase > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3274 (class 2606 OID 49263)
+-- Name: Purchase Purchase_id_purchase_id_purchase1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase"
+    ADD CONSTRAINT "Purchase_id_purchase_id_purchase1_key" UNIQUE (id_purchase) INCLUDE (id_purchase);
+
+
+--
+-- TOC entry 3276 (class 2606 OID 49265)
+-- Name: Purchase Purchase_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase"
+    ADD CONSTRAINT "Purchase_pkey" PRIMARY KEY (id_purchase);
+
+
+--
+-- TOC entry 3235 (class 2606 OID 49266)
+-- Name: Supplier Supplier_id_supplier_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Supplier"
+    ADD CONSTRAINT "Supplier_id_supplier_check" CHECK ((id_supplier > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3285 (class 2606 OID 49268)
+-- Name: Supplier Supplier_id_supplier_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Supplier"
+    ADD CONSTRAINT "Supplier_id_supplier_key" UNIQUE (id_supplier);
+
+
+--
+-- TOC entry 3287 (class 2606 OID 49270)
+-- Name: Supplier Supplier_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Supplier"
+    ADD CONSTRAINT "Supplier_pkey" PRIMARY KEY (id_supplier);
+
+
+--
+-- TOC entry 3236 (class 2606 OID 49271)
+-- Name: Waiter Waiter_id_waiter_check; Type: CHECK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Waiter"
+    ADD CONSTRAINT "Waiter_id_waiter_check" CHECK ((id_waiter > 0)) NOT VALID;
+
+
+--
+-- TOC entry 3289 (class 2606 OID 49273)
+-- Name: Waiter Waiter_id_waiter_id_waiter1_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Waiter"
+    ADD CONSTRAINT "Waiter_id_waiter_id_waiter1_key" UNIQUE (id_waiter) INCLUDE (id_waiter);
+
+
+--
+-- TOC entry 3291 (class 2606 OID 49275)
+-- Name: Waiter Waiter_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Waiter"
+    ADD CONSTRAINT "Waiter_pkey" PRIMARY KEY (id_waiter);
+
+
+--
+-- TOC entry 3296 (class 1259 OID 57453)
+-- Name: fki_Cook_id_cook_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Cook_id_cook_fkey" ON public."Cook_skills" USING btree (id_cook);
+
+
+--
+-- TOC entry 3244 (class 1259 OID 49277)
+-- Name: fki_Dishes_id_dish_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Dishes_id_dish_fkey" ON public."Dish_composition" USING btree (id_dish);
+
+
+--
+-- TOC entry 3241 (class 1259 OID 49278)
+-- Name: fki_Employer_id_employer_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Employer_id_employer_fkey" ON public."Cook" USING btree (id_employer);
+
+
+--
+-- TOC entry 3282 (class 1259 OID 49279)
+-- Name: fki_Ingredient_id_ingredient_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Ingredient_id_ingredient_fkey" ON public."Purchase_composition" USING btree (id_ingredient);
+
+
+--
+-- TOC entry 3249 (class 1259 OID 49280)
+-- Name: fki_Orders_id_order_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Orders_id_order_fkey" ON public."Dishes" USING btree (id_order);
+
+
+--
+-- TOC entry 3254 (class 1259 OID 49281)
+-- Name: fki_Position_id_position_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Position_id_position_fkey" ON public."Employer" USING btree (id_position);
+
+
+--
+-- TOC entry 3283 (class 1259 OID 49282)
+-- Name: fki_Purchase_id_purchase_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Purchase_id_purchase_fkey" ON public."Purchase_composition" USING btree (id_purchase);
+
+
+--
+-- TOC entry 3277 (class 1259 OID 49283)
+-- Name: fki_Purchase_id_supplier_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Purchase_id_supplier_fkey" ON public."Purchase" USING btree (id_purchase);
+
+
+--
+-- TOC entry 3263 (class 1259 OID 49284)
+-- Name: fki_Table_id_table_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Table_id_table_fkey" ON public."Orders" USING btree (id_table);
+
+
+--
+-- TOC entry 3264 (class 1259 OID 49285)
+-- Name: fki_Waiter_id_waiter_fkey; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "fki_Waiter_id_waiter_fkey" ON public."Orders" USING btree (id_waiter);
+
+
+--
+-- TOC entry 3310 (class 2606 OID 57448)
+-- Name: Cook_skills Cook_id_cook_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Cook_skills"
+    ADD CONSTRAINT "Cook_id_cook_fkey" FOREIGN KEY (id_cook) REFERENCES public."Cook"(id_cook) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3298 (class 2606 OID 49291)
+-- Name: Dish_composition Dishes_id_dish_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Dish_composition"
+    ADD CONSTRAINT "Dishes_id_dish_fkey" FOREIGN KEY (id_dish) REFERENCES public."Dishes"(id_dish) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3309 (class 2606 OID 57438)
+-- Name: Order_composition Dishes_id_dish_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Order_composition"
+    ADD CONSTRAINT "Dishes_id_dish_fkey" FOREIGN KEY (id_dish) REFERENCES public."Dishes"(id_dish) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3311 (class 2606 OID 57454)
+-- Name: Cook_skills Dishes_id_dish_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Cook_skills"
+    ADD CONSTRAINT "Dishes_id_dish_fkey" FOREIGN KEY (id_dish) REFERENCES public."Dishes"(id_dish) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3297 (class 2606 OID 49296)
+-- Name: Cook Employer_id_employer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Cook"
+    ADD CONSTRAINT "Employer_id_employer_fkey" FOREIGN KEY (id_employer) REFERENCES public."Employer"(id_employer) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3307 (class 2606 OID 49301)
+-- Name: Waiter Employer_id_employer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Waiter"
+    ADD CONSTRAINT "Employer_id_employer_fkey" FOREIGN KEY (id_employer) REFERENCES public."Employer"(id_employer) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3299 (class 2606 OID 49306)
+-- Name: Dish_composition Ingredient_id_ingredient_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Dish_composition"
+    ADD CONSTRAINT "Ingredient_id_ingredient_fkey" FOREIGN KEY (id_ingredient) REFERENCES public."Ingredient"(id_ingredient) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3305 (class 2606 OID 49311)
+-- Name: Purchase_composition Ingredient_id_ingredient_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase_composition"
+    ADD CONSTRAINT "Ingredient_id_ingredient_fkey" FOREIGN KEY (id_ingredient) REFERENCES public."Ingredient"(id_ingredient) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3300 (class 2606 OID 49316)
+-- Name: Dishes Orders_id_order_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Dishes"
+    ADD CONSTRAINT "Orders_id_order_fkey" FOREIGN KEY (id_order) REFERENCES public."Orders"(id_order) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3308 (class 2606 OID 57433)
+-- Name: Order_composition Orders_id_order_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Order_composition"
+    ADD CONSTRAINT "Orders_id_order_fkey" FOREIGN KEY (id_order) REFERENCES public."Orders"(id_order) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3302 (class 2606 OID 49321)
+-- Name: Orders Platen_id_table_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Orders"
+    ADD CONSTRAINT "Platen_id_table_fkey" FOREIGN KEY (id_table) REFERENCES public."Platen"(id_table) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3301 (class 2606 OID 49326)
+-- Name: Employer Position_id_position_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Employer"
+    ADD CONSTRAINT "Position_id_position_fkey" FOREIGN KEY (id_position) REFERENCES public."Position"(id_position) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3306 (class 2606 OID 49331)
+-- Name: Purchase_composition Purchase_id_purchase_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase_composition"
+    ADD CONSTRAINT "Purchase_id_purchase_fkey" FOREIGN KEY (id_purchase) REFERENCES public."Purchase"(id_purchase) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3304 (class 2606 OID 49520)
+-- Name: Purchase Purchase_id_supplier_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Purchase"
+    ADD CONSTRAINT "Purchase_id_supplier_fkey" FOREIGN KEY (id_supplier) REFERENCES public."Supplier"(id_supplier) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3303 (class 2606 OID 49341)
+-- Name: Orders Waiter_id_waiter_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Orders"
+    ADD CONSTRAINT "Waiter_id_waiter_fkey" FOREIGN KEY (id_waiter) REFERENCES public."Waiter"(id_waiter) ON UPDATE RESTRICT ON DELETE RESTRICT DEFERRABLE INITIALLY DEFERRED;
+
+
+-- Completed on 2022-04-25 04:59:49
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,18 @@
+SELECT public."Waiter".id_waiter, 
+public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+public."Employer".employer_passport
+FROM public."Waiter", public."Employer", public."Orders"
+WHERE public."Waiter".id_employer = public."Employer".id_employer
+AND public."Waiter".id_waiter = public."Orders".id_waiter
+GROUP BY "Waiter".id_waiter, 
+public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+public."Employer".employer_passport
+HAVING COUNT(public."Orders".id_waiter) = (select count(id_waiter) as name
+										  from public."Orders"
+										  group by id_waiter
+										  ORDER BY count(id_waiter) desc
+										  limit 1);
