@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+   <head>
+<title>Insert data to PostgreSQL with php - creating a simple web         application</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+li {list-style: none;}
+</style>
+   </head>
+   <body>
+<h2>Введите данные сотрудника:</h2>
+<ul>
+  <form name="insert" action="insert.php" method="POST" >
+<li>Позиция:</li><li><input type="integer" name="id_position" /></li>
+<li>Фамилия:</li><li><input type="varchar" name="family" /></li>
+<li>Имя:</li><li><input type="varchar" name="name" /></li>
+<li>Отчество:</li><li><input type="varchar" name="patronomyc" /></li>
+<li>Пасспорт:</li><li><input type="varchar" name="employer_passport" /></li>
+<li>ЗП:</li><li><input type="real" name="salary" /></li>
+<li>Категория:</li><li><input type="integer" name="category" /></li>
+<li>ID:</li><li><input type="integer" name="id_employer" /></li>
+<li><input type="submit" /></li>
+  </form>
+</ul>
+</body>
+</html>

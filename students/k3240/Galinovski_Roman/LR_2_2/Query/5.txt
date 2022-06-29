@@ -1,0 +1,12 @@
+SELECT public."Dishes".id_dish,
+public."Dishes".dish_name,
+COUNT(public."Dish_composition".count_ingredient)
+FROM public."Dishes"
+INNER JOIN public."Dish_composition"
+ON public."Dishes".id_dish = public."Dish_composition".id_dish
+GROUP BY public."Dishes".id_dish, public."Dishes".dish_name
+HAVING COUNT(public."Dish_composition".count_ingredient) = (SELECT COUNT(public."Dish_composition".count_ingredient)
+														 FROM public."Dish_composition"
+														 GROUP BY public."Dish_composition".id_dish
+														 ORDER BY COUNT(public."Dish_composition".count_ingredient)
+														 DESC LIMIT 1)

@@ -1,0 +1,28 @@
+SELECT public."Employer".id_employer,
+public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+public."Employer".employer_passport,
+SUM(public."Ingredient".ingredient_price * 
+	public."Order_composition".count_dish * 
+	public."Dish_composition".count_ingredient * 0.05) AS price
+FROM public."Employer", 
+public."Waiter", 
+public."Ingredient",
+public."Order_composition",
+public."Orders",
+public."Dish_composition",
+public."Dishes"
+WHERE public."Ingredient".id_ingredient = public."Dish_composition".id_ingredient
+AND public."Dish_composition".id_dish = public."Dishes".id_dish
+AND public."Dishes".id_dish = public."Order_composition".id_dish
+AND public."Order_composition".id_order = public."Orders".id_order
+AND public."Orders".id_waiter = public."Waiter".id_waiter
+AND public."Waiter".id_employer = public."Employer".id_employer
+AND public."Orders".date_order BETWEEN ((CURRENT_DATE)-10) AND (CURRENT_DATE)
+GROUP BY public."Employer".id_employer,
+public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+public."Employer".employer_passport
+	

@@ -1,0 +1,41 @@
+SELECT public."Employer".id_employer,
+public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+public."Employer".employer_passport,
+SUM(public."Ingredient".ingredient_price * 
+	public."Order_composition".count_dish * 
+	public."Dish_composition".count_ingredient) AS price
+FROM public."Employer", 
+public."Waiter", 
+public."Ingredient",
+public."Order_composition",
+public."Dish_composition",
+public."Dishes",
+public."Orders"
+WHERE public."Ingredient".id_ingredient = public."Dish_composition".id_ingredient
+AND public."Dish_composition".id_dish = public."Dishes".id_dish
+AND public."Orders".id_order = public."Order_composition".id_order
+AND public."Orders".id_waiter = public."Waiter".id_waiter
+AND public."Waiter".id_employer = public."Employer".id_employer
+GROUP BY public."Employer".id_employer, 
+public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+public."Employer".employer_passport
+HAVING SUM(public."Ingredient".ingredient_price) = (SELECT SUM(public."Ingredient".ingredient_price)
+												   FROM public."Employer",
+												   public."Ingredient",
+												   public."Order_composition",
+												   public."Waiter",
+												   public."Dish_composition",
+												   public."Orders",
+												   public."Dishes"
+												   WHERE public."Ingredient".id_ingredient = public."Dish_composition".id_ingredient
+													AND public."Dish_composition".id_dish = public."Dishes".id_dish
+													AND public."Orders".id_order = public."Order_composition".id_order
+													AND public."Orders".id_waiter = public."Waiter".id_waiter
+													AND public."Waiter".id_employer = public."Employer".id_employer
+												   GROUP BY public."Employer".id_employer
+												   ORDER BY SUM(public."Ingredient".ingredient_price) desc
+												   LIMIT 1)

@@ -1,0 +1,17 @@
+SELECT public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+SUM(1 + LENGTH(public."Cook".set_of_dishes) - LENGTH(REPLACE(public."Cook".set_of_dishes, '/','')))
+FROM public."Employer", public."Cook"
+WHERE public."Employer".id_employer = public."Cook".id_employer
+GROUP BY public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc
+HAVING SUM(1 + LENGTH(public."Cook".set_of_dishes) - LENGTH(REPLACE(public."Cook".set_of_dishes, '/',''))) = 
+		  (SELECT SUM(1 + LENGTH(public."Cook".set_of_dishes) - LENGTH(REPLACE(public."Cook".set_of_dishes, '/','')))
+		  FROM public."Employer", public."Cook"
+		  WHERE public."Employer".id_employer = public."Cook".id_employer
+		  GROUP BY public."Employer".family,
+		  public."Employer".name,
+		  public."Employer".patronomyc
+		  ORDER BY SUM DESC LIMIT 1)
