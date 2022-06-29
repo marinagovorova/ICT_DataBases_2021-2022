@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+  <head>  
+    <title>Enter id to display data - creating a simple web application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+       li {list-style: none;}
+    </style>
+  </head>
+  <body>
+    <h2>Введите новые паспортные данные:</h2>
+    <ul>
+     <form name="update" action="update.php" method="POST" >
+      <li>ID сотрудника:</li><li><input type="integer" name="id_employer" /></li>
+	  <li>Паспортные данные:</li><li><input type="varchar" name="employer_passport" /></li>
+      <li><input type="submit" /></li>
+     </form>
+   </ul>
+  </body>
+</html> 

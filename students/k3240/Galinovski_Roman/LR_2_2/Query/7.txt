@@ -1,0 +1,11 @@
+SELECT public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc,
+COUNT(public."Orders".id_waiter) as amount
+FROM public."Employer", public."Platen",  public."Orders", public."Waiter"
+WHERE public."Employer".id_employer = public."Waiter".id_employer
+AND public."Waiter".id_waiter = public."Orders".id_waiter
+AND public."Orders".id_table = public."Platen".id_table
+GROUP BY public."Employer".family,
+public."Employer".name,
+public."Employer".patronomyc
