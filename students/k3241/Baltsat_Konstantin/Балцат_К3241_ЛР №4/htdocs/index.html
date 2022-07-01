@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+   <head>
+<title>Insert data to PostgreSQL with php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+li {listt-style: none;}
+</style>
+   </head>
+   <body>
+<h3>Add new user.</h3>
+  <form name="insert" action="insert.php" method="POST" >
+User nickname<br>
+<input type="text" name="Name"/><br>
+<input type="submit"/>
+<br>
+</form>
+
+<hr>
+<h3>
+   Add new Work Session for an existing user.
+</h3>
+<form name="insert" action="insert_work_session.php" method="POST">
+Work session id<br>
+<input type="number" name="work_session_id"/>
+<br>User nickname<br>
+<input type="text" name="user_id"/><br>
+Additional Data<br>
+<input type="text" name="data"/><br>
+<input type="submit"/>
+</form>
+
+<hr>
+<h3>Delete an existing user.</h3>
+<form name="delete_user" action="delete_user.php" method="POST">
+User nickname<br>
+<input type="text" name="user_nickname_for_deletion"/>
+<br>
+<input type="submit"/>
+</form>
+
+<hr>
+<h3>Update Work Session information</h3>
+<form name="update_work_session" action="update_work_session.php" method="POST">
+<br> 
+Work session Id
+<br>
+<input type="number" name="work_session_id"/>
+<br>
+New Data for update
+<br>
+<input type="text" name="data_for_update"/>
+<br>
+<input type="submit"/>
+</form>
+
+<hr>
+<h3>Get number of active users</h3>
+<form name="select_user" action="select_user.php" method="POST">
+<input type="submit"/>
+</form>
+</body>
+</html>
