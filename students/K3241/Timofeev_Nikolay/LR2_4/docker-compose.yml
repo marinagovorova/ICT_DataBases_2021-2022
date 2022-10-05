@@ -1,0 +1,28 @@
+version: "3"
+services:
+  postgres_db:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "testdb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5438:5432"
+
+  appsmith_db:
+    image: index.docker.io/appsmith/appsmith-ce
+    container_name: appsmith21
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - appsmith_data:/appsmith-stacks
+    restart: unless-stopped
+#    logging:
+#      driver: none
+#    network_mode: "host"
+
+volumes:
+  appsmith_data: { }
+  cache:
+    driver: local
